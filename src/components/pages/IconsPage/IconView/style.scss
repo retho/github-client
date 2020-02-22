@@ -1,0 +1,26 @@
+.IconView {
+  &__icons-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__icon {
+    margin-right: 16px;
+
+    &--size {
+      &_bg {
+        font-size: 128px;
+      }
+      &_md {
+        font-size: 64px;
+      }
+      &_sm {
+        font-size: 32px;
+      }
+      &_x-sm {
+        font-size: 16px;
+      }
+    }
+  }
+}

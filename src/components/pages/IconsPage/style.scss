@@ -1,0 +1,40 @@
+.IconPage {
+  background-color: #fafafa;
+  min-height: 100vh;
+  padding: 60px 40px;
+
+  &__content {
+    margin: 0 auto;
+  }
+}
+
+.IconPage-content {
+  max-width: 850px;
+}
+
+.IconPage-icons-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  &__item {
+    margin: 5px;
+  }
+}
+
+.IconPage-icons-list-item {
+  display: inline-flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 8px 16px;
+  color: #000;
+  border-radius: 2px;
+
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  &__icon {
+    margin-right: 8px;
+  }
+}
