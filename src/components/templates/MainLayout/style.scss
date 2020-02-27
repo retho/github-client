@@ -1,0 +1,9 @@
+.MainLayout {
+  background-color: #fafafa;
+  min-height: 100vh;
+
+  &__header {
+    position: sticky;
+    top: 0;
+  }
+}

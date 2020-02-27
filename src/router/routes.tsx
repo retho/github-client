@@ -1,6 +1,8 @@
 import React from 'react';
-import AppPage from 'components/pages/AppPage';
+import HomePage from 'components/pages/HomePage';
 import IconPage from 'components/pages/IconsPage';
+import MainLayout from 'components/templates/MainLayout';
+import SearchPage from 'components/pages/SearchPage';
 
 export interface IRoute<P extends Record<string, string> | null>
   extends ICreateRouteConfig<P> {}
@@ -20,11 +22,19 @@ const createRoute = <P extends any>(
 const routes = {
   root: createRoute({
     pattern: '/',
-    render: () => <AppPage />,
+    render: () => (
+      <MainLayout>
+        <HomePage />
+      </MainLayout>
+    ),
   }),
   search: createRoute({
     pattern: '/search',
-    render: () => <AppPage />,
+    render: () => (
+      <MainLayout>
+        <SearchPage />
+      </MainLayout>
+    ),
   }),
   icons: createRoute({
     pattern: '/icons',
