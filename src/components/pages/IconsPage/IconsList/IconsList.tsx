@@ -13,7 +13,7 @@ const IconsList: React.FC<IIconsListProps> = () => {
         <Link
           key={x}
           className="IconsList-item IconsList__item"
-          to={stringifyRoute(routes.specificIcon, { iconType: x })}
+          to={stringifyRoute(routes.specificIcon, { iconType: x }, null)}
         >
           <SvgIcon className="IconPage-icons-list-item__icon" type={x} />
           {x}
