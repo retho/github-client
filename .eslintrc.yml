@@ -34,3 +34,4 @@ rules:
   prefer-const: 'warn'
   react/prop-types: 'off'
   '@typescript-eslint/no-empty-interface': 'off'
+  '@typescript-eslint/camelcase': 'off'

@@ -8,6 +8,12 @@
   &__icon {
     font-size: 32px;
     color: white;
+
+    &--logout {
+      margin-left: 12px;
+      font-size: 24px;
+      cursor: pointer;
+    }
   }
 
   &__search-input {
@@ -15,14 +21,20 @@
   }
 
   &__link {
-    color: white;
+    color: #fff;
 
     &--icon {
       margin-right: 16px;
     }
   }
 
-  &__lang-toggler {
+  &__right-panel {
     margin-left: auto;
+    display: flex;
+  }
+
+  &__login {
+    margin: 0 12px;
+    color: #fff;
   }
 }

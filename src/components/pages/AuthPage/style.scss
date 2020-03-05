@@ -1,0 +1,18 @@
+.AuthPage {
+  background-color: #fafafa;
+  min-height: 100vh;
+  padding: 60px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    margin-top: -200px;
+    max-width: 496px;
+    line-height: 1.5em;
+  }
+
+  &__input {
+    margin-top: 24px;
+  }
+}
