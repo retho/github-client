@@ -14,4 +14,19 @@ code {
 
 * {
   box-sizing: border-box;
+
+  &::-webkit-scrollbar-track {
+    border-radius: 1.5px;
+    background-color: #fff;
+  }
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    background-color: #e4e4e4;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1.5px;
+    background-color: #e4e4e4;
+  }
 }

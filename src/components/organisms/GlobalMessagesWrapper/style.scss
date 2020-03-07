@@ -1,0 +1,16 @@
+.GlobalMessagesWrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 500px;
+  height: 100vh;
+  padding-right: 50px;
+  pointer-events: none;
+
+  &__message {
+    margin-bottom: 30px;
+    pointer-events: initial;
+  }
+}

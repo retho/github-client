@@ -1,0 +1,32 @@
+.GlobalMessage {
+  position: relative;
+  background-color: #fff;
+  padding: 0 20px 20px;
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.3);
+  line-height: 1.5em;
+
+  &--type {
+    &_success {
+      border-top: 3px solid #0f0;
+    }
+
+    &_info {
+      border-top: 3px solid #00f;
+    }
+
+    &_warning {
+      border-top: 3px solid #ffa500;
+    }
+
+    &_error {
+      border-top: 3px solid #f00;
+    }
+  }
+
+  &__x {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+}

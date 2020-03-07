@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './style.scss';
 import i18n from './i18n';
-import { useLocale } from 'utils/useLocale';
+import { useLocale } from 'utils/i18n';
 import { range } from 'lodash-es';
 import { useAjax } from 'utils/ajax';
 import { queryUserData } from './gql';

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './style.scss';
 import i18n from './i18n';
-import { useLocale } from 'utils/useLocale';
+import { useLocale } from 'utils/i18n';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchRepository } from 'store/slices/search';
 import { RootState } from 'store';

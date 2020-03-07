@@ -12,6 +12,7 @@ import { ReactComponent as octiconTriangleDown } from './svg/octicon-triangle-do
 import { ReactComponent as octiconTriangleLeft } from './svg/octicon-triangle-left.svg';
 import { ReactComponent as octiconTriangleRight } from './svg/octicon-triangle-right.svg';
 import { ReactComponent as octiconTriangleUp } from './svg/octicon-triangle-up.svg';
+import { ReactComponent as octiconX } from './svg/octicon-x.svg';
 
 const icons = {
   'octicon-mark-github': octiconMarkGithub,
@@ -22,6 +23,7 @@ const icons = {
   'octicon-triangle-left': octiconTriangleLeft,
   'octicon-triangle-right': octiconTriangleRight,
   'octicon-triangle-up': octiconTriangleUp,
+  'octicon-x': octiconX,
 };
 export type SvgIconType = keyof typeof icons;
 

@@ -4,7 +4,7 @@ import './style.scss';
 import SvgIcon from 'components/atoms/SvgIcon';
 import LangToggler from 'components/molecules/LangToggler';
 import i18n from './i18n';
-import { useLocale } from 'utils/useLocale';
+import { useLocale } from 'utils/i18n';
 import { Link, useHistory } from 'react-router-dom';
 import { stringifyRoute } from 'utils/router';
 import { routes } from 'router';

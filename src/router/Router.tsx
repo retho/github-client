@@ -6,6 +6,7 @@ import { stringifyRoute } from 'utils/router';
 import { parse } from 'querystring';
 import { RootState } from 'store';
 import { useSelector } from 'react-redux';
+import GlobalMessagesWrapper from 'components/organisms/GlobalMessagesWrapper';
 
 const notFoundRoute = <Redirect to={stringifyRoute(routes.root, null, null)} />;
 const redirectToAuth = (
@@ -46,7 +47,12 @@ const Router: React.FC = () => {
     [location.pathname, queryParams, isAuthorized]
   );
 
-  return route || notFoundRoute;
+  return (
+    <>
+      {route || notFoundRoute}
+      <GlobalMessagesWrapper />
+    </>
+  );
 };
 
 export default Router;
