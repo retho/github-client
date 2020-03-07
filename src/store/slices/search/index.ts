@@ -2,7 +2,6 @@ import { createSlice, PayloadAction, createAction } from '@reduxjs/toolkit';
 import { AppEpic } from 'store';
 import { filter, map, concatAll } from 'rxjs/operators';
 import { from, of } from 'rxjs';
-import { rxajax } from 'utils/ajax';
 import { queryRepositorySearch, IQuerySearchParams } from './gql';
 
 const sliceName = 'search';
@@ -47,13 +46,13 @@ export interface ISearchActionPayload extends IQuerySearchParams {}
 export const searchRepository = createAction<ISearchActionPayload>(
   `${sliceName}/searchRepository`
 );
-export const epicSearchRepository: AppEpic = (action$, state$) =>
+export const epicSearchRepository: AppEpic = (action$, state$, { ajax }) =>
   action$.pipe(
     filter(searchRepository.match),
     map((action) =>
       from([
         of(fetchingUp()),
-        rxajax(state$)(queryRepositorySearch(action.payload)).pipe(
+        ajax(state$)(queryRepositorySearch(action.payload)).pipe(
           map(([x]) =>
             setResults({
               resultsCount: x.data.search.repositoryCount,

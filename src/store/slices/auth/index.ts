@@ -3,7 +3,6 @@ import { userInfoQuery } from './gql';
 import { AppEpic } from 'store';
 import { filter, map, concatAll } from 'rxjs/operators';
 import { from, of } from 'rxjs';
-import { rxajax } from 'utils/ajax';
 
 const sliceName = 'auth';
 
@@ -57,13 +56,13 @@ export const { reset, setToken } = slice.actions;
 export default slice.reducer;
 
 export const getUserInfo = createAction<void>(`${sliceName}/getUserInfo`);
-export const epicUserInfo: AppEpic = (action$, state$) =>
+export const epicUserInfo: AppEpic = (action$, state$, { ajax }) =>
   action$.pipe(
     filter(getUserInfo.match),
     map(() =>
       from([
         of(fetchingUp()),
-        rxajax(state$)(userInfoQuery()).pipe(
+        ajax(state$)(userInfoQuery()).pipe(
           map(([x, headers]) =>
             from([
               setUserInfo({
