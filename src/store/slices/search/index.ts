@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction, createAction } from '@reduxjs/toolkit';
 import { AppEpic } from 'store';
-import { filter, map, concatAll } from 'rxjs/operators';
+import { filter, map, concatAll, catchError } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 import { queryRepositorySearch, IQuerySearchParams } from './gql';
+import { handleAjaxErrorRx } from 'utils/ajax';
 
 const sliceName = 'search';
 
@@ -57,7 +58,8 @@ export const epicSearchRepository: AppEpic = (action$, state$, { ajax }) =>
             setResults({
               resultsCount: x.data.search.repositoryCount,
             })
-          )
+          ),
+          catchError(handleAjaxErrorRx)
         ),
         of(fetchingDown()),
       ]).pipe(concatAll())

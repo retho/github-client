@@ -1,10 +1,12 @@
 import { DocumentNode } from 'graphql';
-import { RootState } from 'store';
-import { from, Observable } from 'rxjs';
+import { RootState, AppDispatch } from 'store';
+import { from, Observable, of } from 'rxjs';
 import { useStore } from 'react-redux';
 import { useCallback } from 'react';
 import { StateObservable } from 'redux-observable';
 import { logout } from 'store/epics';
+import { Action } from 'redux';
+import { showMessage } from 'store/slices/globalMessages';
 
 export interface IGithubApiErrorBody {
   message: string;
@@ -26,6 +28,53 @@ export class GithubApiError extends Error {
     this.body = body;
   }
 }
+
+export const handleAjaxError = (dispatch: AppDispatch) => (err: any): void => {
+  console.error('handleAjaxError', err);
+
+  if (err instanceof GithubApiError) {
+    if (err.status === 401) {
+      dispatch(logout());
+      return;
+    }
+
+    dispatch(
+      showMessage({
+        hideIn: null,
+        message: {
+          type: 'error',
+          title: 'GithubApiError',
+          description: err.body.message,
+        },
+      })
+    );
+    return;
+  }
+
+  throw err;
+};
+export const handleAjaxErrorRx = (err: any): Observable<Action> => {
+  console.error('handleAjaxErrorRx', err);
+
+  if (err instanceof GithubApiError) {
+    if (err.status === 401) {
+      return of(logout());
+    }
+
+    return of(
+      showMessage({
+        hideIn: null,
+        message: {
+          type: 'error',
+          title: 'GithubApiError',
+          description: err.body.message,
+        },
+      })
+    );
+  }
+
+  throw err;
+};
 
 interface IAjaxRequest<R> {
   path: string;
@@ -102,15 +151,7 @@ export const useAjax = <
 ): F => {
   const store = useStore();
   const g = useCallback(
-    (...args: any[]) =>
-      f(ajax(store.getState))(...args).catch((err) => {
-        console.log('useAjax error handler', err);
-        if (err instanceof GithubApiError) {
-          if (err.status === 401) store.dispatch(logout());
-        } else {
-          throw err;
-        }
-      }),
+    (...args: any[]) => f(ajax(store.getState))(...args).catch(handleAjaxError),
     deps
   );
   return g as F;

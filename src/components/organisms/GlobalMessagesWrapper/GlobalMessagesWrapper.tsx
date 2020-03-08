@@ -1,46 +1,20 @@
 import React from 'react';
 import './style.scss';
 import GlobalMessage from './GlobalMessage';
-import { range } from 'lodash-es';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 export interface IGlobalMessagesWrapperProps {}
 const GlobalMessagesWrapper: React.FC<IGlobalMessagesWrapperProps> = () => {
+  const mgs = useSelector((state: RootState) => state.globalMessages.messages);
+
   return (
     <div className="GlobalMessagesWrapper">
-      <GlobalMessage
-        className="GlobalMessagesWrapper__message"
-        message={{
-          type: 'success',
-          title: 'Unexpected error',
-          description: 'Please, reload the page.',
-        }}
-      />
-      <GlobalMessage
-        className="GlobalMessagesWrapper__message"
-        message={{
-          type: 'info',
-          title: 'Unexpected error',
-          description: 'Please, reload the page.',
-        }}
-      />
-      <GlobalMessage
-        className="GlobalMessagesWrapper__message"
-        message={{
-          type: 'warning',
-          title: 'Unexpected error',
-          description: 'Please, reload the page.',
-        }}
-      />
-      {range(0, 10).map((_, i) => (
+      {mgs.map((x) => (
         <GlobalMessage
-          key={i}
+          key={x.id}
           className="GlobalMessagesWrapper__message"
-          message={{
-            type: 'error',
-            title: 'Unexpected error',
-            description:
-              'Application may not work properly.\nPlease, reload the page.',
-          }}
+          message={x}
         />
       ))}
     </div>

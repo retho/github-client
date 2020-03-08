@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction, createAction } from '@reduxjs/toolkit';
 import { userInfoQuery } from './gql';
 import { AppEpic } from 'store';
-import { filter, map, concatAll } from 'rxjs/operators';
+import { filter, map, concatAll, catchError } from 'rxjs/operators';
 import { from, of } from 'rxjs';
+import { handleAjaxErrorRx } from 'utils/ajax';
 
 const sliceName = 'auth';
 
@@ -74,7 +75,8 @@ export const epicUserInfo: AppEpic = (action$, state$, { ajax }) =>
               ),
             ])
           ),
-          concatAll()
+          concatAll(),
+          catchError(handleAjaxErrorRx)
         ),
         of(fetchingDown()),
       ]).pipe(concatAll())

@@ -36,6 +36,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
-export type AppEpic = Epic<Action, Action, RootState, typeof dependencies>;
+export type AppEpicDeps = typeof dependencies;
+export type AppEpic = Epic<Action, Action, RootState, AppEpicDeps>;
 
 export default store;

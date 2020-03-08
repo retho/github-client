@@ -3,11 +3,13 @@ import { combineReducers } from '@reduxjs/toolkit';
 import i18n from './slices/i18n';
 import search from './slices/search';
 import auth from './slices/auth';
+import globalMessages from './slices/globalMessages';
 
 const rootReducer = combineReducers({
   i18n,
   auth,
   search,
+  globalMessages,
 });
 
 export default rootReducer;
