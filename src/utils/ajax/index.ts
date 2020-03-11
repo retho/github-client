@@ -2,7 +2,7 @@ import { DocumentNode } from 'graphql';
 import { RootState, AppDispatch } from 'store';
 import { from, Observable, of } from 'rxjs';
 import { useStore } from 'react-redux';
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 import { StateObservable } from 'redux-observable';
 import { logout } from 'store/epics';
 import { Action } from 'redux';
@@ -142,17 +142,7 @@ export const rxajax = (state$: StateObservable<RootState>) => <R>(
   req: IAjaxRequest<R>
 ): Observable<R> => from(ajax(() => state$.value)(req));
 
-export const useAjax = <
-  R extends any,
-  F extends (...args: any[]) => Promise<R>
->(
-  f: (ajx: typeof ajaxBasic) => F,
-  deps: React.DependencyList
-): F => {
+export const useAjax = () => {
   const store = useStore();
-  const g = useCallback(
-    (...args: any[]) => f(ajax(store.getState))(...args).catch(handleAjaxError),
-    deps
-  );
-  return g as F;
+  return useMemo(() => ajax(store.getState), []);
 };

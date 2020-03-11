@@ -1,3 +1,7 @@
-.AppPage-body {
-  padding: 0 16px;
+.HomePage {
+  padding: 0 32px;
+
+  &__graphql-explorer {
+    margin: 20px 0;
+  }
 }
