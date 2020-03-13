@@ -34,4 +34,15 @@
     display: flex;
     flex-direction: row-reverse;
   }
+
+  &__pre {
+    border: 1px solid #cacaca;
+    line-height: 1.4em;
+    padding: 10px;
+    overflow: auto;
+    border-radius: 3px;
+    background-color: #fafafb;
+    color: #393939;
+    // margin: 2em 0;
+  }
 }

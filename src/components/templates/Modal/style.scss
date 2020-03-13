@@ -1,0 +1,29 @@
+.Modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  min-height: 100%;
+  padding: 200px 0;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  &--closed {
+    display: none;
+  }
+}
+
+.Modal {
+  position: relative;
+  background-color: #fff;
+  width: 916px;
+  padding: 24px;
+
+  &__x {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    cursor: pointer;
+  }
+}

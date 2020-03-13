@@ -8,6 +8,8 @@ import { logout } from 'store/epics';
 import { Action } from 'redux';
 import { showMessage } from 'store/slices/globalMessages';
 
+const apiRoot = 'https://api.github.com';
+
 export interface IGithubApiErrorBody {
   message: string;
   documentation_url: string;
@@ -15,23 +17,21 @@ export interface IGithubApiErrorBody {
 export class GithubApiError extends Error {
   status: number;
   headers: Headers;
-  body: IGithubApiErrorBody;
+  data: IGithubApiErrorBody;
 
-  constructor(status: number, headers: Headers, body: IGithubApiErrorBody) {
-    super(`${status} ${body.message}`);
+  constructor(status: number, headers: Headers, data: IGithubApiErrorBody) {
+    super(`${status} ${data.message}`);
     // * Set the prototype explicitly. https://stackoverflow.com/questions/41102060/typescript-extending-error-class
     Object.setPrototypeOf(this, GithubApiError.prototype);
     this.name = this.constructor.name;
 
     this.status = status;
     this.headers = headers;
-    this.body = body;
+    this.data = data;
   }
 }
 
 export const handleAjaxError = (dispatch: AppDispatch) => (err: any): void => {
-  console.error('handleAjaxError', err);
-
   if (err instanceof GithubApiError) {
     if (err.status === 401) {
       dispatch(logout());
@@ -44,7 +44,7 @@ export const handleAjaxError = (dispatch: AppDispatch) => (err: any): void => {
         message: {
           type: 'error',
           title: 'GithubApiError',
-          description: err.body.message,
+          description: err.data.message,
         },
       })
     );
@@ -67,13 +67,22 @@ export const handleAjaxErrorRx = (err: any): Observable<Action> => {
         message: {
           type: 'error',
           title: 'GithubApiError',
-          description: err.body.message,
+          description: err.data.message,
         },
       })
     );
   }
 
   throw err;
+};
+
+const transformApiError = async (res: Response): Promise<Response> => {
+  if (!res.ok) {
+    const body = await res.json();
+    throw new GithubApiError(res.status, res.headers, body);
+  }
+
+  return res;
 };
 
 interface IAjaxRequest<R> {
@@ -100,20 +109,46 @@ export const gqlQuery = (
   variables?: object
 ): IAjaxRequest<[IGraphqlResponseBody, Headers]> => {
   return {
-    path: 'https://api.github.com/graphql',
+    path: `${apiRoot}/graphql`,
     init: {
       method: 'POST',
       body: JSON.stringify({ query: query.loc?.source.body, variables }),
     },
-    transformResponse: async (res) => {
-      const body = await res.json();
+    transformResponse: (res) =>
+      transformApiError(res).then(async (res) => {
+        const body = await res.json();
+        const r: [IGraphqlResponseBody, Headers] = [body, res.headers];
+        return r;
+      }),
+  };
+};
 
-      if (!res.ok) {
-        throw new GithubApiError(res.status, res.headers, body);
-      }
+interface IRawQueryParams extends RequestInit {
+  path: string;
+}
+export const rawQuery = ({
+  path,
+  ...init
+}: IRawQueryParams): IAjaxRequest<Response> => {
+  return {
+    path: `${apiRoot}${path}`,
+    init,
+    transformResponse: transformApiError,
+  };
+};
 
-      return [body, res.headers];
-    },
+interface IJsonQueryParams extends IRawQueryParams {}
+export const jsonQuery = (
+  params: IJsonQueryParams
+): IAjaxRequest<[any, Headers]> => {
+  const ajxr = rawQuery(params);
+  return {
+    ...ajxr,
+    transformResponse: (res) =>
+      ajxr.transformResponse(res).then(async (res) => {
+        const r: [any, Headers] = [await res.json(), res.headers];
+        return r;
+      }),
   };
 };
 
