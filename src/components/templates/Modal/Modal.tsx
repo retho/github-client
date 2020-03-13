@@ -5,10 +5,13 @@ import './style.scss';
 import SvgIcon from 'components/atoms/SvgIcon';
 import { stopPropagation } from 'utils/common';
 
-const foregroundNode = document.querySelector('#foreground');
-if (!foregroundNode) {
-  throw new Error('#foreground not found');
-}
+const getForegroundNode = () => {
+  const foregroundNode = document.querySelector('#foreground');
+  if (!foregroundNode) {
+    throw new Error('#foreground not found');
+  }
+  return foregroundNode;
+};
 
 export interface IModalProps {
   children?: JSX.Element;
@@ -26,7 +29,7 @@ const Modal: React.FC<IModalProps> = ({ children, open, onClose }) => {
         {children}
       </div>
     </div>,
-    foregroundNode
+    getForegroundNode()
   );
 };
 

@@ -13,7 +13,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pretty && npm run lint:strict"
+      "pre-commit": "npm run pretty && npm run lint:strict && cross-env CI=true npm run test"
     }
   },
   "eslintConfig": {
@@ -37,6 +37,7 @@
     "@types/webpack-env": "^1.14.1",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
+    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
