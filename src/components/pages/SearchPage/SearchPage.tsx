@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import { compact } from 'lodash-es';
 import { stringifyRoute } from 'utils/router';
 import { routes } from 'router';
+import SvgIcon from 'components/atoms/SvgIcon';
 
 interface ISearchFilters {
   search?: string;
@@ -40,10 +41,11 @@ const SearchPage: React.FC<ISearchPageProps> = ({ filters }) => {
   const resultsCount = useSelector(
     (state: RootState) => state.search.resultsCount
   );
+  const foundRepos = useSelector((state: RootState) => state.search.list);
 
   useEffect(() => {
     if (filters.search) {
-      dispatch(searchRepository({ q: filters2query(filters), first: 30 }));
+      dispatch(searchRepository({ q: filters2query(filters), first: 10 }));
     }
   }, [filters]);
 
@@ -103,6 +105,51 @@ const SearchPage: React.FC<ISearchPageProps> = ({ filters }) => {
       </form>
       <div className="SearchPage-results SearchPage__results">
         <h1>{!isFetching ? locale.resultsFound(resultsCount) : '...'}</h1>
+        <div className="SearchPage-results__list">
+          {foundRepos.map((x) => (
+            <div
+              key={x.id}
+              className="SearchPage-result-item SearchPage-results__list-item"
+            >
+              <div className="SearchPage-result-item__icon">
+                <SvgIcon type="octicon-repo" />
+              </div>
+              <div>
+                <div className="SearchPage-result-item__title">
+                  <a href={x.url} target="_blank" rel="noopener noreferrer">
+                    {x.nameWithOwner}
+                  </a>
+                </div>
+                <div className="SearchPage-result-item__description">
+                  {x.description}
+                </div>
+                <div className="SearchPage-result-item__topics">
+                  {x.repositoryTopics.nodes.map((y) => (
+                    <a
+                      key={y.url}
+                      href={y.url}
+                      className="SearchPage-topic-tag"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {y.topic.name}
+                    </a>
+                  ))}
+                </div>
+                <div className="SearchPage-result-item__meta-info">
+                  <SvgIcon type="octicon-star" /> {x.stargazers.totalCount}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{x.primaryLanguage.name}
+                  {x.licenseInfo && (
+                    <span>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{x.licenseInfo.name}
+                    </span>
+                  )}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Updated at {x.updatedAt}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

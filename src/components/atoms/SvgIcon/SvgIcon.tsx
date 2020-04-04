@@ -11,6 +11,7 @@ import { ReactComponent as octiconRepo } from './svg/octicon-repo.svg';
 import { ReactComponent as octiconX } from './svg/octicon-x.svg';
 import { ReactComponent as octiconPlay } from './svg/octicon-play.svg';
 import { ReactComponent as octiconInfo } from './svg/octicon-info.svg';
+import { ReactComponent as octiconStar } from './svg/octicon-star.svg';
 
 const icons = {
   'octicon-mark-github': octiconMarkGithub,
@@ -20,6 +21,7 @@ const icons = {
   'octicon-x': octiconX,
   'octicon-play': octiconPlay,
   'octicon-info': octiconInfo,
+  'octicon-star': octiconStar,
 };
 export type SvgIconType = keyof typeof icons;
 

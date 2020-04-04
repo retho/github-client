@@ -100,14 +100,14 @@ const ajaxBasic = async <R>({
   return await transformResponse(res);
 };
 
-interface IGraphqlResponseBody {
-  data: any;
+interface IGraphqlResponseBody<R = any> {
+  data: R;
   errors?: any[];
 }
-export const gqlQuery = (
+export const gqlQuery = <R = any>(
   query: DocumentNode,
   variables?: object
-): IAjaxRequest<[IGraphqlResponseBody, Headers]> => {
+): IAjaxRequest<[IGraphqlResponseBody<R>, Headers]> => {
   return {
     path: `${apiRoot}/graphql`,
     init: {
@@ -117,7 +117,7 @@ export const gqlQuery = (
     transformResponse: (res) =>
       transformApiError(res).then(async (res) => {
         const body = await res.json();
-        const r: [IGraphqlResponseBody, Headers] = [body, res.headers];
+        const r: [IGraphqlResponseBody<R>, Headers] = [body, res.headers];
         return r;
       }),
   };

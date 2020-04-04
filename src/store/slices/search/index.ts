@@ -2,7 +2,11 @@ import { createSlice, PayloadAction, createAction } from '@reduxjs/toolkit';
 import { AppEpic } from 'store';
 import { filter, map, concatAll, catchError } from 'rxjs/operators';
 import { from, of } from 'rxjs';
-import { queryRepositorySearch, IQuerySearchParams } from './gql';
+import {
+  queryRepositorySearch,
+  IQuerySearchParams,
+  RepositorySearchResultItem,
+} from './gql';
 import { handleAjaxErrorRx } from 'utils/ajax';
 
 const sliceName = 'search';
@@ -10,11 +14,13 @@ const sliceName = 'search';
 interface ISearchState {
   fetching: number;
   resultsCount: number;
+  list: RepositorySearchResultItem[];
 }
 
 const defaultState: ISearchState = {
   fetching: 0,
   resultsCount: 0,
+  list: [],
 };
 const slice = createSlice({
   name: sliceName,
@@ -31,10 +37,16 @@ const slice = createSlice({
     }),
     setResults: (
       state,
-      { payload }: PayloadAction<{ resultsCount: number }>
+      {
+        payload,
+      }: PayloadAction<{
+        resultsCount: number;
+        list: RepositorySearchResultItem[];
+      }>
     ) => ({
       ...state,
       resultsCount: payload.resultsCount,
+      list: payload.list,
     }),
   },
 });
@@ -57,6 +69,7 @@ export const epicSearchRepository: AppEpic = (action$, state$, { ajax }) =>
           map(([x]) =>
             setResults({
               resultsCount: x.data.search.repositoryCount,
+              list: x.data.search.nodes,
             })
           ),
           catchError(handleAjaxErrorRx)

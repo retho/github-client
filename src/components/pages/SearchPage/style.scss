@@ -5,7 +5,7 @@
   }
 
   &__results {
-    margin: 40px;
+    padding: 40px;
   }
 }
 
@@ -42,4 +42,46 @@
   *:last-child {
     flex-grow: 1;
   }
+}
+
+.SearchPage-results {
+  &__list-item {
+    border-top: 1px solid #e1e4e8;
+  }
+}
+
+.SearchPage-result-item {
+  display: flex;
+  flex-direction: row;
+  padding: 24px 0;
+  line-height: 1.5em;
+
+  &__icon {
+    flex-shrink: 0;
+    padding-top: 4px;
+    padding-right: 4px;
+  }
+
+  &__meta-info {
+    color: #586069;
+    font-size: 12px;
+  }
+
+  &__description {
+    padding: 6px 0;
+  }
+}
+
+.SearchPage-topic-tag {
+  display: inline-block;
+  padding: 0.3em 0.9em;
+  margin: 0 0.5em 0.5em 0;
+  white-space: nowrap;
+  background-color: #f1f8ff;
+  border-radius: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 12px;
+  color: #0366d6;
+  text-decoration: none;
 }
