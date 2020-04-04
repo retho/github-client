@@ -14,23 +14,20 @@ const rootEpic: AppEpic = (action$, ...rest) =>
     epicUserInfo,
     epicShowMessage
   )(action$, ...rest).pipe(
-    catchError((
-      _,
-      source // ! stateful epics may lose state in the restart
-    ) =>
+    catchError((_, source) =>
       from([
         of(
           showMessage({
             hideIn: null,
             message: {
               type: 'error',
-              title: 'Unexpected error',
+              title: 'Unexpected error occured',
               description:
                 'Application may not work properly. Please reload the page.',
             },
           })
         ),
-        source,
+        source, // ! stateful epics may lose state in the restart
       ]).pipe(mergeAll())
     )
   );

@@ -1,2 +1,45 @@
 .SearchPage {
+  &__form {
+    margin: 40px auto;
+    max-width: 900px;
+  }
+
+  &__results {
+    margin: 40px;
+  }
+}
+
+.SearchPage-form {
+  padding: 0 40px;
+
+  &__advanced-item {
+    margin: 0.5em 0;
+  }
+
+  &__search {
+    font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    input {
+      flex-grow: 1;
+      margin: 0 10px;
+    }
+  }
+}
+
+.SearchPage-advanced-item {
+  display: flex;
+  max-width: 600px;
+
+  label {
+    display: inline-block;
+    width: 250px;
+  }
+
+  *:last-child {
+    flex-grow: 1;
+  }
 }

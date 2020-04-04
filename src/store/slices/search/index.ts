@@ -9,12 +9,12 @@ const sliceName = 'search';
 
 interface ISearchState {
   fetching: number;
-  resultsCount: null | number;
+  resultsCount: number;
 }
 
 const defaultState: ISearchState = {
   fetching: 0,
-  resultsCount: null,
+  resultsCount: 0,
 };
 const slice = createSlice({
   name: sliceName,

@@ -4,9 +4,9 @@ import MainLayout from 'components/templates/MainLayout';
 import SearchPage from 'components/pages/SearchPage';
 
 type Params = null;
-type QueryParams = 'q';
-export default createRouteRender<Params, QueryParams>((_, { q }) => (
+type QueryParams = 'search' | 'owners' | 'language';
+export default createRouteRender<Params, QueryParams>((_, filters) => (
   <MainLayout>
-    <SearchPage q={q} />
+    <SearchPage filters={filters} />
   </MainLayout>
 ));
