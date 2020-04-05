@@ -4,8 +4,9 @@ import { AppEpic } from 'store';
 import { filter, map, concatAll, catchError } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 import { handleAjaxErrorRx } from 'utils/ajax';
+import { getSliceName } from 'utils/redux';
 
-const sliceName = 'auth';
+const sliceName = getSliceName('auth');
 
 enum OAuthScope {
   public_repo = 'public_repo',

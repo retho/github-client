@@ -10,8 +10,9 @@ import {
 } from 'rxjs/operators';
 import { from, of, race, timer, interval } from 'rxjs';
 import { IGlobalMessage } from 'components/organisms/GlobalMessagesWrapper/GlobalMessage/GlobalMessage';
+import { getSliceName } from 'utils/redux';
 
-const sliceName = 'globalMessages';
+const sliceName = getSliceName('globalMessages');
 
 interface IGlobalMessagesState {
   nextId: number;

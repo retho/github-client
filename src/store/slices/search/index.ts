@@ -8,8 +8,9 @@ import {
   RepositorySearchResultItem,
 } from './gql';
 import { handleAjaxErrorRx } from 'utils/ajax';
+import { getSliceName } from 'utils/redux';
 
-const sliceName = 'search';
+const sliceName = getSliceName('search');
 
 interface ISearchState {
   fetching: number;

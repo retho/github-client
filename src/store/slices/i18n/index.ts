@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getSliceName } from 'utils/redux';
 
-const sliceName = 'counter';
+const sliceName = getSliceName('counter');
 
 export enum SupportedLang {
   en = 'en',
