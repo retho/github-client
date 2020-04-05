@@ -6,6 +6,7 @@ import iconsRender from './routeRenders/icons';
 import specificIconRender from './routeRenders/specificIcon';
 import demoRender from './routeRenders/demo';
 import demoThemeRender from './routeRenders/demoTheme';
+import demoMediaRender from './routeRenders/demoMedia';
 
 const routes = {
   root: createRoute('/', rootRender),
@@ -15,6 +16,7 @@ const routes = {
   specificIcon: createRoute('/icons/:iconType', specificIconRender),
   demo: createRoute('/demo', demoRender),
   demoTheme: createRoute('/demo/theme', demoThemeRender),
+  demoMedia: createRoute('/demo/media', demoMediaRender),
 };
 
 export default routes;

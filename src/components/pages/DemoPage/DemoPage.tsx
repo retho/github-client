@@ -5,15 +5,20 @@ import { Link } from 'react-router-dom';
 import { stringifyRoute } from 'utils/router';
 import { routes } from 'router';
 import DemoTheme from 'components/organisms/DemoTheme';
+import DemoMedia from 'components/organisms/DemoMedia';
 
 export interface IDemoPageProps {
-  subject?: 'theme';
+  subject?: 'theme' | 'media';
 }
 const DemoPage: React.FC<IDemoPageProps> = ({ subject }) => {
   let content = null;
   switch (subject) {
     case 'theme': {
       content = <DemoTheme />;
+      break;
+    }
+    case 'media': {
+      content = <DemoMedia />;
       break;
     }
     default: {
@@ -23,6 +28,11 @@ const DemoPage: React.FC<IDemoPageProps> = ({ subject }) => {
             <li>
               <Link to={stringifyRoute(routes.demoTheme, null, null)}>
                 Theme
+              </Link>
+            </li>
+            <li>
+              <Link to={stringifyRoute(routes.demoMedia, null, null)}>
+                Media
               </Link>
             </li>
           </ul>

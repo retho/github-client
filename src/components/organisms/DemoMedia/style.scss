@@ -1,0 +1,55 @@
+@import 'styles/media';
+
+$gutter: 8px;
+$side: 240px;
+
+.DemoMedia {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 24px auto 24px;
+  max-width: 4 * ($side + 2 * $gutter);
+
+  @include media($md) {
+    max-width: 2 * ($side + 2 * $gutter);
+  }
+
+  @include media($xs) {
+    max-width: ($side + 2 * $gutter);
+  }
+
+  &__card {
+    position: relative;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: $gutter;
+    width: 240px;
+    height: 240px;
+    border: 6px solid rgb(77, 204, 26);
+
+    &::before {
+      position: absolute;
+      font-size: 72px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      color: #888;
+      content: 'xl';
+
+      @include media($lg) {
+        content: 'lg';
+      }
+
+      @include media($md) {
+        content: 'md';
+      }
+
+      @include media($sm) {
+        content: 'sm';
+      }
+
+      @include media($xs) {
+        content: 'xs';
+      }
+    }
+  }
+}
