@@ -6,15 +6,18 @@ import 'normalize.css';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
+import ThemeProvider from 'components/atoms/ThemeProvider';
 
 const render = () => {
   const Router = require('./router').default;
 
   ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <ThemeProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </ThemeProvider>
     </Provider>,
     document.getElementById('root')
   );

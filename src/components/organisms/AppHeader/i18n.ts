@@ -7,4 +7,8 @@ export default {
     en: 'Icons',
     ru: 'Иконки',
   },
+  demo: {
+    en: 'Demo',
+    ru: 'Демо',
+  },
 };

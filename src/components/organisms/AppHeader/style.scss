@@ -5,6 +5,7 @@
   padding: 25px 25px;
   background-color: #3c4146;
   border-bottom-color: #202326;
+  z-index: 1; // TODO
 
   &__icon {
     font-size: 32px;
@@ -23,6 +24,10 @@
 
   &__link {
     color: #fff;
+
+    & + & {
+      margin-left: 10px;
+    }
 
     &--icon {
       margin-right: 16px;

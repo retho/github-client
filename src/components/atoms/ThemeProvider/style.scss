@@ -1,0 +1,21 @@
+@mixin light-theme {
+  --background-color-primary: #e4e4e4;
+  --text-color-primary: #000;
+  --selection-background-color: #3c4146;
+  --selection-text-color: #e4e4e4;
+}
+
+.ThemeProvider {
+  @include light-theme; // * default theme
+
+  &--light {
+    @include light-theme;
+  }
+
+  &--dark {
+    --background-color-primary: #212121;
+    --text-color-primary: #fff;
+    --selection-background-color: #b4b4b4;
+    --selection-text-color: #fff;
+  }
+}

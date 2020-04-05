@@ -1,0 +1,24 @@
+$headerHeight: 85px;
+
+.DemoTheme {
+  padding: 24px;
+  line-height: 2em;
+  min-height: calc(100vh - #{$headerHeight});
+  background-color: var(--background-color-primary);
+  color: var(--text-color-primary);
+
+  ::selection {
+    background-color: var(--selection-background-color);
+    color: var(--selection-text-color);
+  }
+
+  &__content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__theme-toggler {
+    display: flex;
+    align-items: center;
+  }
+}
