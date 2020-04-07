@@ -28,7 +28,7 @@ const AppHeader: React.FC<IAppHeaderProps> = ({ className }) => {
   const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.which === 13) {
       // * enter
-      history.push(stringifyRoute(routes.search, null, { search }));
+      history.push(stringifyRoute(routes.search, null, { q: search }));
     }
   };
 

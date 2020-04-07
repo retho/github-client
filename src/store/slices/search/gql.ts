@@ -17,7 +17,7 @@ export type RepositorySearchResultItem = Pick<
   IGqlRepository,
   'id' | 'name' | 'description' | 'updatedAt' | 'nameWithOwner' | 'url'
 > & {
-  primaryLanguage: IGqlLanguage;
+  primaryLanguage?: IGqlLanguage;
   owner: Pick<IGqlRepositoryOwner, 'login'>;
   licenseInfo?: Pick<IGqlLicense, 'name'>;
   repositoryTopics: {
