@@ -4,8 +4,6 @@ $gutter: 8px;
 $side: 240px;
 
 .DemoMedia {
-  display: flex;
-  flex-wrap: wrap;
   margin: 24px auto 24px;
   max-width: 4 * ($side + 2 * $gutter);
 
@@ -15,6 +13,16 @@ $side: 240px;
 
   @include media($xs) {
     max-width: ($side + 2 * $gutter);
+  }
+
+  &__header {
+    font-size: 72px;
+    color: #888;
+  }
+
+  &__card-list {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   &__card {
