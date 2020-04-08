@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo, useEffect } from 'react';
 import { MediaContext } from 'components/atoms/MediaProvider';
 
 export enum MediaBreakpoints {
@@ -9,17 +9,29 @@ export enum MediaBreakpoints {
 }
 
 export const useMedia = <V>(defaultValue: V, config: Record<number, V>): V => {
-  const windowWidth = useContext(MediaContext);
+  const {
+    windowWidth,
+    registerBreakpoints,
+    unregisterBreakpoints,
+  } = useContext(MediaContext);
+
   const breakpoints = useMemo(
     () =>
       Object.keys(config)
         .map((x) => +x)
         .sort((a, b) => a - b),
-    [config]
+    []
   );
+
+  useEffect(() => {
+    registerBreakpoints(breakpoints);
+    return () => unregisterBreakpoints(breakpoints);
+  }, []);
+
   const currentBreakpoint = useMemo(
     () => breakpoints.find((x) => windowWidth < x),
-    [breakpoints, windowWidth]
+    [windowWidth]
   );
+
   return currentBreakpoint ? config[currentBreakpoint] : defaultValue;
 };

@@ -11,9 +11,16 @@ const DemoMedia: React.FC<IDemoMediaProps> = () => {
     [MediaBreakpoints.xs]: 'xs',
   });
 
+  const currentDevice = useMedia('desktop', {
+    [MediaBreakpoints.md]: 'tablet',
+    [MediaBreakpoints.sm]: 'mobile',
+  });
+
   return (
     <div className="DemoMedia">
-      <h1 className="DemoMedia__header">{currentBreakpoint}</h1>
+      <h1 className="DemoMedia__header">
+        {currentBreakpoint} {currentDevice}
+      </h1>
       <div className="DemoMedia__card-list">
         <div className="DemoMedia__card" />
         <div className="DemoMedia__card" />
