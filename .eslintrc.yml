@@ -30,9 +30,12 @@ rules:
   jsx-a11y/anchor-is-valid: 'warn'
   react/display-name: 'off'
   '@typescript-eslint/interface-name-prefix':
-    ['error', { prefixWithI: 'always', allowUnderscorePrefix: false }]
+    ['error', {prefixWithI: 'always', allowUnderscorePrefix: false}]
   prefer-const: 'warn'
   react/prop-types: 'off'
   '@typescript-eslint/no-empty-interface': 'off'
   '@typescript-eslint/camelcase': 'off'
-  no-empty: ['error', { 'allowEmptyCatch': true }]
+  no-empty: ['error', {'allowEmptyCatch': true}]
+  no-alert: 'error'
+  no-debugger: 'warn'
+  no-console: ['warn', {allow: ['error']}]

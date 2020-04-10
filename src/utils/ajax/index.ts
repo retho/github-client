@@ -1,12 +1,12 @@
-import { DocumentNode } from 'graphql';
-import { RootState, AppDispatch } from 'store';
-import { from, Observable, of } from 'rxjs';
-import { useStore } from 'react-redux';
-import { useMemo } from 'react';
-import { StateObservable } from 'redux-observable';
-import { logout } from 'store/epics';
-import { Action } from 'redux';
-import { showMessage } from 'store/slices/globalMessages';
+import {DocumentNode} from 'graphql';
+import {RootState, AppDispatch} from 'store';
+import {from, Observable, of} from 'rxjs';
+import {useStore} from 'react-redux';
+import {useMemo} from 'react';
+import {StateObservable} from 'redux-observable';
+import {logout} from 'store/epics';
+import {Action} from 'redux';
+import {showMessage} from 'store/slices/globalMessages';
 
 const apiRoot = 'https://api.github.com';
 
@@ -32,6 +32,8 @@ export class GithubApiError extends Error {
 }
 
 export const handleAjaxError = (dispatch: AppDispatch) => (err: any): void => {
+  console.error(err);
+
   if (err instanceof GithubApiError) {
     if (err.status === 401) {
       dispatch(logout());
@@ -54,7 +56,7 @@ export const handleAjaxError = (dispatch: AppDispatch) => (err: any): void => {
   throw err;
 };
 export const handleAjaxErrorRx = (err: any): Observable<Action> => {
-  console.error('handleAjaxErrorRx', err);
+  console.error(err);
 
   if (err instanceof GithubApiError) {
     if (err.status === 401) {
@@ -90,11 +92,7 @@ interface IAjaxRequest<R> {
   init?: RequestInit;
   transformResponse: (res: Response) => Promise<R>;
 }
-const ajaxBasic = async <R>({
-  path,
-  init,
-  transformResponse,
-}: IAjaxRequest<R>): Promise<R> => {
+const ajaxBasic = async <R>({path, init, transformResponse}: IAjaxRequest<R>): Promise<R> => {
   const res = await fetch(path, init);
 
   return await transformResponse(res);
@@ -112,7 +110,7 @@ export const gqlQuery = <R = any>(
     path: `${apiRoot}/graphql`,
     init: {
       method: 'POST',
-      body: JSON.stringify({ query: query.loc?.source.body, variables }),
+      body: JSON.stringify({query: query.loc?.source.body, variables}),
     },
     transformResponse: (res) =>
       transformApiError(res).then(async (res) => {
@@ -126,10 +124,7 @@ export const gqlQuery = <R = any>(
 interface IRawQueryParams extends RequestInit {
   path: string;
 }
-export const rawQuery = ({
-  path,
-  ...init
-}: IRawQueryParams): IAjaxRequest<Response> => {
+export const rawQuery = ({path, ...init}: IRawQueryParams): IAjaxRequest<Response> => {
   return {
     path: `${apiRoot}${path}`,
     init,
@@ -138,9 +133,7 @@ export const rawQuery = ({
 };
 
 interface IJsonQueryParams extends IRawQueryParams {}
-export const jsonQuery = (
-  params: IJsonQueryParams
-): IAjaxRequest<[any, Headers]> => {
+export const jsonQuery = (params: IJsonQueryParams): IAjaxRequest<[any, Headers]> => {
   const ajxr = rawQuery(params);
   return {
     ...ajxr,
