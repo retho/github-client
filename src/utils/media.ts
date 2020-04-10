@@ -1,5 +1,10 @@
-import { useContext, useMemo, useEffect } from 'react';
-import { MediaContext } from 'components/atoms/MediaProvider';
+import { useMemo, useEffect, useRef } from 'react';
+import { useForceRender } from './common';
+
+const getCurrentBreakpoint = (
+  breakpointsSortedByAsc: number[],
+  windowWidth: number
+) => breakpointsSortedByAsc.find((x) => windowWidth < x);
 
 export enum MediaBreakpoints {
   lg = 1350,
@@ -7,13 +12,8 @@ export enum MediaBreakpoints {
   sm = 768,
   xs = 520,
 }
-
 export const useMedia = <V>(defaultValue: V, config: Record<number, V>): V => {
-  const {
-    windowWidth,
-    registerBreakpoints,
-    unregisterBreakpoints,
-  } = useContext(MediaContext);
+  const forceRender = useForceRender();
 
   const breakpoints = useMemo(
     () =>
@@ -22,16 +22,25 @@ export const useMedia = <V>(defaultValue: V, config: Record<number, V>): V => {
         .sort((a, b) => a - b),
     []
   );
-
-  useEffect(() => {
-    registerBreakpoints(breakpoints);
-    return () => unregisterBreakpoints(breakpoints);
-  }, []);
-
-  const currentBreakpoint = useMemo(
-    () => breakpoints.find((x) => windowWidth < x),
-    [windowWidth]
+  const currentBreakpointRef = useRef(
+    getCurrentBreakpoint(breakpoints, window.innerWidth)
   );
 
-  return currentBreakpoint ? config[currentBreakpoint] : defaultValue;
+  useEffect(() => {
+    const listener = () => {
+      const prevBreakpoint = currentBreakpointRef.current;
+      currentBreakpointRef.current = getCurrentBreakpoint(
+        breakpoints,
+        window.innerWidth
+      );
+      if (currentBreakpointRef.current !== prevBreakpoint) forceRender();
+    };
+
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('resize', listener);
+  }, []);
+
+  return currentBreakpointRef.current
+    ? config[currentBreakpointRef.current]
+    : defaultValue;
 };

@@ -6,5 +6,5 @@ export const assertNever = (val: never, throwErr = false) => {
 
 export const stopPropagation = (e: SyntheticEvent) => e.stopPropagation();
 
-export const useForceUpdate = () =>
+export const useForceRender = () =>
   useReducer((s) => s + 1, 0)[1] as () => void;

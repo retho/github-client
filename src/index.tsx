@@ -7,7 +7,6 @@ import './styles/index.scss';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import ThemeProvider from 'components/atoms/ThemeProvider';
-import MediaProvider from 'components/atoms/MediaProvider';
 
 const render = () => {
   const Router = require('./router').default;
@@ -15,11 +14,9 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>
-        <MediaProvider>
-          <BrowserRouter>
-            <Router />
-          </BrowserRouter>
-        </MediaProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
       </ThemeProvider>
     </Provider>,
     document.getElementById('root')
