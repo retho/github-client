@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './style.scss';
-import { Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'utils/redux';
-import { setToken } from 'store/slices/auth';
-import { routes } from 'router';
-import { stringifyRoute } from 'utils/router';
+import {useDispatch} from 'react-redux';
+import {setToken} from 'store/slices/auth';
 
 const AuthPage: React.FC = () => {
   const [authToken, setAuthToken] = useState('');
@@ -18,17 +14,13 @@ const AuthPage: React.FC = () => {
     }
   };
 
-  const isAuthorized = useSelector((state) => !!state.auth.token);
-
-  return isAuthorized ? (
-    <Redirect to={stringifyRoute(routes.root, null, null)} />
-  ) : (
+  return (
     <div className="AuthPage">
       <div className="AuthPage__content">
         Insert personal access token from{' '}
         {'`GitHub -> Settings -> Developer Settings -> Personal access tokens`'}
         <br />
-        <a href="https://github.com/settings/tokens">
+        <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreferrer">
           https://github.com/settings/tokens
         </a>
         <form onSubmit={handleSubmit}>

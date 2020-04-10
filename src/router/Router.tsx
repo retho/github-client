@@ -6,9 +6,9 @@ import {stringifyRoute} from 'utils/router';
 import {parse} from 'querystring';
 import {useSelector} from 'utils/redux';
 import GlobalMessagesWrapper from 'components/organisms/GlobalMessagesWrapper';
+import AuthPage from 'components/pages/AuthPage';
 
 const notFoundRoute = <Redirect to={stringifyRoute(routes.root, null, null)} />;
-const redirectToAuth = <Redirect to={stringifyRoute(routes.auth, null, null)} />;
 
 interface IRouteContext {
   isAuthorized: boolean;
@@ -18,8 +18,8 @@ const getCurrentRoute = (
   currentPath: string,
   queryParams: Record<string, string>
 ) => {
-  if (!context.isAuthorized && !new UrlPattern(routes.auth.pattern).match(currentPath)) {
-    return redirectToAuth;
+  if (!context.isAuthorized) {
+    return <AuthPage />;
   }
   for (const x of Object.values(routes)) {
     const params = new UrlPattern(x.pattern).match(currentPath);
