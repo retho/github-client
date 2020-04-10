@@ -1,6 +1,6 @@
-import { useSelector } from 'utils/redux';
-import { useMemo } from 'react';
-import { SupportedLang } from 'store/slices/i18n';
+import {useSelector} from 'utils/redux';
+import {useMemo} from 'react';
+import {SupportedLang} from 'store/slices/i18n';
 
 type Vocabulary<V> = Record<SupportedLang, V>;
 
@@ -15,10 +15,7 @@ type Locale<I18n extends II18nConfig> = {
   [K in keyof I18n]: I18n[K] extends Vocabulary<infer J> ? J : never;
 };
 
-const getLocale = <I18n extends II18nConfig>(
-  config: I18n,
-  lang: SupportedLang
-): Locale<I18n> => {
+const getLocale = <I18n extends II18nConfig>(config: I18n, lang: SupportedLang): Locale<I18n> => {
   const acc = {} as any;
   for (const key in config) {
     acc[key] = config[key][lang];
@@ -26,9 +23,7 @@ const getLocale = <I18n extends II18nConfig>(
   return acc;
 };
 
-export const useLocale = <I18n extends II18nConfig>(
-  config: I18n
-): Locale<I18n> => {
+export const useLocale = <I18n extends II18nConfig>(config: I18n): Locale<I18n> => {
   const lang = useSelector((state) => state.i18n.lang);
   return useMemo(() => getLocale(config, lang), [config, lang]);
 };

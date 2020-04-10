@@ -1,4 +1,4 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import {combineReducers} from '@reduxjs/toolkit';
 
 import i18n from './slices/i18n';
 import theme from './slices/theme';

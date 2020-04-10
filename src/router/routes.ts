@@ -1,4 +1,4 @@
-import { createRoute } from 'router/core';
+import {createRoute} from 'router/core';
 
 import rootRender from './routeRenders/root';
 import searchRender from './routeRenders/search';

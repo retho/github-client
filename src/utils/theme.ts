@@ -1,7 +1,7 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'utils/redux';
-import { Theme, switchTheme } from 'store/slices/theme';
+import {useCallback} from 'react';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'utils/redux';
+import {Theme, switchTheme} from 'store/slices/theme';
 
 export const useTheme = () => {
   const dispatch = useDispatch();

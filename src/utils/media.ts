@@ -1,17 +1,9 @@
-import { useMemo, useEffect, useRef } from 'react';
-import { useForceRender } from './common';
+import {useMemo, useEffect, useRef} from 'react';
+import {useForceRender} from './common';
 
-const getCurrentBreakpoint = (
-  breakpointsSortedByAsc: number[],
-  windowWidth: number
-) => breakpointsSortedByAsc.find((x) => windowWidth < x);
+const getCurrentBreakpoint = (breakpointsSortedByAsc: number[], windowWidth: number) =>
+  breakpointsSortedByAsc.find((x) => windowWidth < x);
 
-export enum MediaBreakpoints {
-  lg = 1350,
-  md = 1072,
-  sm = 768,
-  xs = 520,
-}
 export const useMedia = <V>(defaultValue: V, config: Record<number, V>): V => {
   const forceRender = useForceRender();
 
@@ -22,17 +14,12 @@ export const useMedia = <V>(defaultValue: V, config: Record<number, V>): V => {
         .sort((a, b) => a - b),
     []
   );
-  const currentBreakpointRef = useRef(
-    getCurrentBreakpoint(breakpoints, window.innerWidth)
-  );
+  const currentBreakpointRef = useRef(getCurrentBreakpoint(breakpoints, window.innerWidth));
 
   useEffect(() => {
     const listener = () => {
       const prevBreakpoint = currentBreakpointRef.current;
-      currentBreakpointRef.current = getCurrentBreakpoint(
-        breakpoints,
-        window.innerWidth
-      );
+      currentBreakpointRef.current = getCurrentBreakpoint(breakpoints, window.innerWidth);
       if (currentBreakpointRef.current !== prevBreakpoint) forceRender();
     };
 
@@ -40,7 +27,12 @@ export const useMedia = <V>(defaultValue: V, config: Record<number, V>): V => {
     return () => window.removeEventListener('resize', listener);
   }, []);
 
-  return currentBreakpointRef.current
-    ? config[currentBreakpointRef.current]
-    : defaultValue;
+  return currentBreakpointRef.current ? config[currentBreakpointRef.current] : defaultValue;
 };
+
+export enum MediaBreakpoints {
+  lg = 1350,
+  md = 1072,
+  sm = 768,
+  xs = 520,
+}

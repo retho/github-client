@@ -1,11 +1,11 @@
-import { combineEpics } from 'redux-observable';
-import { epicSearchRepository } from './slices/search';
-import { AppEpic } from 'store';
-import { catchError, mergeAll } from 'rxjs/operators';
+import {combineEpics} from 'redux-observable';
+import {epicSearchRepository} from './slices/search';
+import {AppEpic} from 'store';
+import {catchError, mergeAll} from 'rxjs/operators';
 import freeEpics from './epics';
-import { epicUserInfo } from './slices/auth';
-import { from, of } from 'rxjs';
-import { epicShowMessage, showMessage } from './slices/globalMessages';
+import {epicUserInfo} from './slices/auth';
+import {from, of} from 'rxjs';
+import {epicShowMessage, showMessage} from './slices/globalMessages';
 
 const rootEpic: AppEpic = (action$, ...rest) =>
   combineEpics(
@@ -22,8 +22,7 @@ const rootEpic: AppEpic = (action$, ...rest) =>
             message: {
               type: 'error',
               title: 'Unexpected error occured',
-              description:
-                'Application may not work properly. Please reload the page.',
+              description: 'Application may not work properly. Please reload the page.',
             },
           })
         ),

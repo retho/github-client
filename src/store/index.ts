@@ -1,17 +1,17 @@
-import { configureStore, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { ThunkAction } from 'redux-thunk';
-import { BehaviorSubject } from 'rxjs';
-import { createEpicMiddleware, Epic } from 'redux-observable';
-import { switchMap } from 'rxjs/operators';
+import {configureStore, Action, getDefaultMiddleware} from '@reduxjs/toolkit';
+import {ThunkAction} from 'redux-thunk';
+import {BehaviorSubject} from 'rxjs';
+import {createEpicMiddleware, Epic} from 'redux-observable';
+import {switchMap} from 'rxjs/operators';
 
 import rootEpic from './rootEpic';
 import rootReducer from './rootReducer';
-import { rxajax } from 'utils/ajax';
+import {rxajax} from 'utils/ajax';
 
 const dependencies = {
   ajax: rxajax,
 };
-const epicMiddleware = createEpicMiddleware({ dependencies });
+const epicMiddleware = createEpicMiddleware({dependencies});
 const store = configureStore({
   reducer: rootReducer,
   middleware: [...getDefaultMiddleware(), epicMiddleware],
