@@ -8,10 +8,10 @@ import { useLocale } from 'utils/i18n';
 import { Link, useHistory } from 'react-router-dom';
 import { stringifyRoute } from 'utils/router';
 import { routes } from 'router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'utils/redux';
 import { logout } from 'store/epics';
 import { getUserInfo } from 'store/slices/auth';
-import { RootState } from 'store';
 
 export interface IAppHeaderProps {
   className?: string;
@@ -22,7 +22,7 @@ const AppHeader: React.FC<IAppHeaderProps> = ({ className }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  const userInfo = useSelector((state) => state.auth.userInfo);
 
   const [search, setSearch] = useState('');
   const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {

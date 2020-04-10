@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './style.scss';
 import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'utils/redux';
 import { setToken } from 'store/slices/auth';
-import { RootState } from 'store';
 import { routes } from 'router';
 import { stringifyRoute } from 'utils/router';
 
@@ -18,7 +18,7 @@ const AuthPage: React.FC = () => {
     }
   };
 
-  const isAuthorized = useSelector((state: RootState) => !!state.auth.token);
+  const isAuthorized = useSelector((state) => !!state.auth.token);
 
   return isAuthorized ? (
     <Redirect to={stringifyRoute(routes.root, null, null)} />

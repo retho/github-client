@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import './style.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from 'store';
+import { useSelector } from 'utils/redux';
 
 export interface IThemeProviderProps {
   children: JSX.Element;
 }
 const ThemeProvider = ({ children }: IThemeProviderProps) => {
-  const theme = useSelector((state: RootState) => state.theme.theme);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     document.body.classList.add('ThemeProvider');

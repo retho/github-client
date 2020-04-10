@@ -1,5 +1,4 @@
-import { useSelector } from 'react-redux';
-import { RootState } from 'store';
+import { useSelector } from 'utils/redux';
 import { useMemo } from 'react';
 import { SupportedLang } from 'store/slices/i18n';
 
@@ -30,6 +29,6 @@ const getLocale = <I18n extends II18nConfig>(
 export const useLocale = <I18n extends II18nConfig>(
   config: I18n
 ): Locale<I18n> => {
-  const lang = useSelector((state: RootState) => state.i18n.lang);
+  const lang = useSelector((state) => state.i18n.lang);
   return useMemo(() => getLocale(config, lang), [config, lang]);
 };

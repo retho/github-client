@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import './style.scss';
 import i18n from './i18n';
 import { useLocale } from 'utils/i18n';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'utils/redux';
 import { useHistory } from 'react-router';
 import { searchRepository } from 'store/slices/search';
-import { RootState } from 'store';
 import { useFormik } from 'formik';
 import { compact, identity, pickBy } from 'lodash-es';
 import { stringifyRoute } from 'utils/router';
@@ -36,11 +36,9 @@ const SearchPage: React.FC<ISearchPageProps> = ({ filters, advanced }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const isFetching = useSelector((state: RootState) => !!state.search.fetching);
-  const resultsCount = useSelector(
-    (state: RootState) => state.search.resultsCount
-  );
-  const foundRepos = useSelector((state: RootState) => state.search.list);
+  const isFetching = useSelector((state) => !!state.search.fetching);
+  const resultsCount = useSelector((state) => state.search.resultsCount);
+  const foundRepos = useSelector((state) => state.search.list);
 
   useEffect(() => {
     if (filters.q) {

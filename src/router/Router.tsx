@@ -4,8 +4,7 @@ import UrlPattern from 'url-pattern';
 import { useLocation, Redirect } from 'react-router-dom';
 import { stringifyRoute } from 'utils/router';
 import { parse } from 'querystring';
-import { RootState } from 'store';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'utils/redux';
 import GlobalMessagesWrapper from 'components/organisms/GlobalMessagesWrapper';
 
 const notFoundRoute = <Redirect to={stringifyRoute(routes.root, null, null)} />;
@@ -40,7 +39,7 @@ const Router: React.FC = () => {
     () => parse(location.search && location.search.slice(1)) as any,
     [location.search]
   );
-  const isAuthorized = useSelector((state: RootState) => !!state.auth.token);
+  const isAuthorized = useSelector((state) => !!state.auth.token);
 
   const route = useMemo(
     () => getCurrentRoute({ isAuthorized }, location.pathname, queryParams),

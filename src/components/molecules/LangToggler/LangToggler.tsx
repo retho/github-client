@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'store';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'utils/redux';
 import { SupportedLang, switchLang } from 'store/slices/i18n';
 import cn from 'classnames';
 import Switch from 'components/atoms/Switch';
@@ -11,7 +11,7 @@ export interface ILangTogglerProps {
 }
 const LangToggler = (props: ILangTogglerProps) => {
   const dispatch = useDispatch();
-  const lang = useSelector((state: RootState) => state.i18n.lang);
+  const lang = useSelector((state) => state.i18n.lang);
 
   const handleChange = (checked: boolean) =>
     dispatch(switchLang(checked ? SupportedLang.en : SupportedLang.ru));
