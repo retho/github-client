@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import './style.scss';
 import Switch from 'components/atoms/Switch';
-import { useTheme } from 'utils/theme';
-import { Theme } from 'store/slices/theme';
+import {Theme, switchTheme} from 'store/slices/theme';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'utils/redux';
 
 const lorem = `
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed turpis sagittis, vestibulum mauris non, scelerisque purus. Fusce scelerisque enim tellus, vitae hendrerit erat semper et. Nam nec pellentesque odio. Morbi vel sagittis ex, ac condimentum enim. Ut vel lorem faucibus diam viverra convallis eget ac elit. Fusce gravida vel felis id efficitur. Praesent eu sapien sed sapien viverra elementum eget vitae lacus. In hac habitasse platea dictumst. Donec tempor mollis elit, sit amet luctus nisl vehicula vitae.
@@ -21,9 +22,11 @@ Donec ac dapibus nulla. Nunc dolor turpis, finibus in tempor vel, vehicula vitae
 
 export interface IDemoThemeProps {}
 const DemoTheme: React.FC<IDemoThemeProps> = () => {
-  const [theme, setTheme] = useTheme();
+  const dispatch = useDispatch();
+
+  const theme = useSelector((state) => state.theme.theme);
   const handleThemeChange = useCallback(
-    (checked: boolean) => setTheme(checked ? Theme.dark : Theme.light),
+    (checked: boolean) => dispatch(switchTheme(checked ? Theme.dark : Theme.light)),
     []
   );
 
