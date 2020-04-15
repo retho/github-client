@@ -8,6 +8,7 @@ import specificIconRender from './routeRenders/specificIcon';
 import demoRender from './routeRenders/demo';
 import demoThemeRender from './routeRenders/demoTheme';
 import demoMediaRender from './routeRenders/demoMedia';
+import demoFormRender from './routeRenders/demoForm';
 
 const routes = {
   root: createRoute('/', rootRender),
@@ -21,6 +22,7 @@ const routes = {
   demo: createRoute('/demo', demoRender),
   demoTheme: createRoute('/demo/theme', demoThemeRender),
   demoMedia: createRoute('/demo/media', demoMediaRender),
+  demoForm: createRoute('/demo/form', demoFormRender),
 };
 
 export default routes;
