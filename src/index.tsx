@@ -1,23 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import store from './store';
-import 'normalize.css';
-import './styles/index.scss';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
-import ThemeProvider from 'components/atoms/ThemeProvider';
+import {BrowserRouter} from 'react-router-dom';
+import './styles/index.scss';
 
 const render = () => {
   const Router = require('./router').default;
 
   ReactDOM.render(
     <Provider store={store}>
-      <ThemeProvider>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </ThemeProvider>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </Provider>,
     document.getElementById('root')
   );

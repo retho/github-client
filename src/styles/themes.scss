@@ -1,0 +1,27 @@
+@mixin light-theme {
+  --common-text-primary: hsl(0, 0%, 0%);
+  --common-background: hsl(0, 0%, 90%);
+  --common-selection-text: hsl(0, 0%, 90%);
+  --common-selection-background: hsl(210, 8%, 25%);
+
+  --switcher-on: hsl(0, 0%, 50%);
+  --switcher-off: hsl(0, 0%, 50%);
+}
+
+.q-theme-provider {
+  @include light-theme; // * default theme
+
+  &--light {
+    @include light-theme;
+  }
+
+  &--dark {
+    --common-background: hsl(0, 0%, 15%);
+    --common-text-primary: hsl(0, 0%, 100%);
+    --common-selection-background: hsl(0, 0%, 70%);
+    --common-selection-text: hsl(0, 0%, 100%);
+
+    --switcher-on: hsl(0, 0%, 50%);
+    --switcher-off: hsl(0, 0%, 50%);
+  }
+}

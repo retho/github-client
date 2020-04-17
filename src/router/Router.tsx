@@ -7,6 +7,7 @@ import {parse} from 'querystring';
 import {useSelector} from 'utils/redux';
 import GlobalMessagesWrapper from 'components/organisms/GlobalMessagesWrapper';
 import AuthPage from 'components/pages/AuthPage';
+import {useThemeProvider} from './hooks';
 
 const notFoundRoute = <Redirect to={stringifyRoute(routes.root, null, null)} />;
 
@@ -29,7 +30,9 @@ const getCurrentRoute = (
 };
 
 const Router: React.FC = () => {
-  const location = useLocation();
+  useThemeProvider();
+
+  const location = useLocation(); // ! использование `useLocation` в других компонентах не приветствуется
   const queryParams = useMemo(() => parse(location.search && location.search.slice(1)) as any, [
     location.search,
   ]);

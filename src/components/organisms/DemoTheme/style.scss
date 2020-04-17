@@ -4,12 +4,12 @@ $headerHeight: 85px;
   padding: 24px;
   line-height: 2em;
   min-height: calc(100vh - #{$headerHeight});
-  background-color: var(--background-color-primary);
-  color: var(--text-color-primary);
+  background-color: var(--common-background);
+  color: var(--common-text-primary);
 
   ::selection {
-    background-color: var(--selection-background-color);
-    color: var(--selection-text-color);
+    background-color: var(--common-selection-background);
+    color: var(--common-selection-text);
   }
 
   &__content {
