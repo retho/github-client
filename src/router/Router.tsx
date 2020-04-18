@@ -1,5 +1,6 @@
 import React, {useMemo} from 'react';
 import routes from './routes';
+import extendedRoutes from './extendedRoutes';
 import UrlPattern from 'url-pattern';
 import {useLocation, Redirect} from 'react-router-dom';
 import {stringifyRoute} from 'utils/router';
@@ -22,7 +23,7 @@ const getCurrentRoute = (
   if (!context.isAuthorized) {
     return <AuthPage />;
   }
-  for (const x of Object.values(routes)) {
+  for (const x of Object.values(extendedRoutes)) {
     const params = new UrlPattern(x.pattern).match(currentPath);
     if (params) return x.render(params, queryParams);
   }

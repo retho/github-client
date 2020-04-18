@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import './style.scss';
 import MainLayout from 'components/templates/MainLayout';
 import {Link} from 'react-router-dom';
@@ -8,7 +8,7 @@ import DemoTheme from 'components/organisms/DemoTheme';
 import DemoMedia from 'components/organisms/DemoMedia';
 import DemoForm from 'components/organisms/DemoForm';
 
-const getNav = () => ({
+const nav = {
   theme: {
     component: DemoTheme,
     title: 'theme',
@@ -24,16 +24,12 @@ const getNav = () => ({
     title: 'form',
     url: stringifyRoute(routes.demoForm, null, null),
   },
-});
-
-type Nav = ReturnType<typeof getNav>;
+};
 
 export interface IDemoPageProps {
-  subject?: keyof Nav;
+  subject?: keyof typeof nav;
 }
 const DemoPage: React.FC<IDemoPageProps> = ({subject}) => {
-  const nav = useMemo(() => getNav(), []);
-
   const SubjectComponent = subject && nav[subject].component;
 
   const content = SubjectComponent ? (

@@ -1,28 +1,20 @@
 import {createRoute} from 'router/core';
 
-import rootRender from './routeRenders/root';
-import searchRender from './routeRenders/search';
-import searchAdvancedRender from './routeRenders/searchAdvanced';
-import iconsRender from './routeRenders/icons';
-import specificIconRender from './routeRenders/specificIcon';
-import demoRender from './routeRenders/demo';
-import demoThemeRender from './routeRenders/demoTheme';
-import demoMediaRender from './routeRenders/demoMedia';
-import demoFormRender from './routeRenders/demoForm';
+type SearchQueryParams = 'q' | 'owners' | 'language';
 
 const routes = {
-  root: createRoute('/', rootRender),
+  root: createRoute<null, null>('/'),
 
-  search: createRoute('/search', searchRender),
-  searchAdvanced: createRoute('/search/advanced', searchAdvancedRender),
+  search: createRoute<null, SearchQueryParams>('search'),
+  searchAdvanced: createRoute<null, SearchQueryParams>('/search/advanced'),
 
-  icons: createRoute('/icons', iconsRender),
-  specificIcon: createRoute('/icons/:iconType', specificIconRender),
+  icons: createRoute<null, null>('/icons'),
+  specificIcon: createRoute<'iconType', null>('/icons/:iconType'),
 
-  demo: createRoute('/demo', demoRender),
-  demoTheme: createRoute('/demo/theme', demoThemeRender),
-  demoMedia: createRoute('/demo/media', demoMediaRender),
-  demoForm: createRoute('/demo/form', demoFormRender),
+  demo: createRoute<null, null>('/demo'),
+  demoTheme: createRoute<null, null>('/demo/theme'),
+  demoMedia: createRoute<null, null>('/demo/media'),
+  demoForm: createRoute<null, null>('/demo/form'),
 };
 
 export default routes;
