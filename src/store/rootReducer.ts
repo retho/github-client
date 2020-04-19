@@ -5,6 +5,8 @@ import theme from './slices/theme';
 import search from './slices/search';
 import auth from './slices/auth';
 import globalMessages from './slices/globalMessages';
+import demoRx from './slices/demoRx';
+import demoThunk from './slices/demoThunk';
 
 const rootReducer = combineReducers({
   i18n,
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
   auth,
   search,
   globalMessages,
+  demoRx,
+  demoThunk,
 });
 
 export default rootReducer;

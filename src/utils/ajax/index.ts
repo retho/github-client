@@ -162,15 +162,15 @@ export const withGithubAuthentication = (oauthToken: string | null) => <R>(
       };
 };
 
-const ajax = (getState: () => RootState): typeof ajaxBasic => (req) => {
+export const ajaxCore = (getState: () => RootState): typeof ajaxBasic => (req) => {
   return ajaxBasic(withGithubAuthentication(getState().auth.token)(req));
 };
 
 export const rxajax = (state$: StateObservable<RootState>) => <R>(
   req: IAjaxRequest<R>
-): Observable<R> => from(ajax(() => state$.value)(req));
+): Observable<R> => from(ajaxCore(() => state$.value)(req));
 
 export const useAjax = () => {
   const store = useStore();
-  return useMemo(() => ajax(store.getState), []);
+  return useMemo(() => ajaxCore(store.getState), []);
 };

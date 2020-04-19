@@ -6,16 +6,20 @@ import freeEpics from './epics';
 import {epicUserInfo} from './slices/auth';
 import {from, of} from 'rxjs';
 import {epicShowMessage, showMessage} from './slices/globalMessages';
+import {epicDemoRxLoadData} from './slices/demoRx';
 
 const rootEpic: AppEpic = (action$, ...rest) =>
   combineEpics(
     freeEpics,
     epicSearchRepository,
     epicUserInfo,
-    epicShowMessage
+    epicShowMessage,
+    epicDemoRxLoadData
   )(action$, ...rest).pipe(
-    catchError((_, source) =>
-      from([
+    catchError((err, source) => {
+      console.error(err);
+
+      return from([
         of(
           showMessage({
             hideIn: null,
@@ -27,8 +31,8 @@ const rootEpic: AppEpic = (action$, ...rest) =>
           })
         ),
         source, // ! stateful epics may lose state in the restart
-      ]).pipe(mergeAll())
-    )
+      ]).pipe(mergeAll());
+    })
   );
 
 export default rootEpic;

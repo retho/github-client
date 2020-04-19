@@ -6,15 +6,26 @@ import {switchMap} from 'rxjs/operators';
 
 import rootEpic from './rootEpic';
 import rootReducer from './rootReducer';
-import {rxajax} from 'utils/ajax';
+import {rxajax, ajaxCore} from 'utils/ajax';
 
+const thunkExtraArgument = {
+  ajax: ajaxCore,
+};
 const dependencies = {
   ajax: rxajax,
 };
+
 const epicMiddleware = createEpicMiddleware({dependencies});
 const store = configureStore({
   reducer: rootReducer,
-  middleware: [...getDefaultMiddleware(), epicMiddleware],
+  middleware: [
+    ...getDefaultMiddleware({
+      thunk: {
+        extraArgument: thunkExtraArgument,
+      },
+    }),
+    epicMiddleware,
+  ],
 });
 
 const epic$ = new BehaviorSubject(rootEpic);
@@ -35,7 +46,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
+export type AppThunk = ThunkAction<void, RootState, typeof thunkExtraArgument, Action<string>>;
 export type AppEpicDeps = typeof dependencies;
 export type AppEpic = Epic<Action, Action, RootState, AppEpicDeps>;
 

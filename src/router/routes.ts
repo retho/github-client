@@ -15,6 +15,7 @@ const routes = {
   demoTheme: createRoute<null, null>('/demo/theme'),
   demoMedia: createRoute<null, null>('/demo/media'),
   demoForm: createRoute<null, null>('/demo/form'),
+  demoThunkVsRx: createRoute<null, null>('/demo/thunk-vs-rx'),
 };
 
 export default routes;

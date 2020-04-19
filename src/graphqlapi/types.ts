@@ -3,6 +3,21 @@ export type URI = string;
 export type DateTime = string;
 export type Int = number;
 
+export interface IGqlUser {
+  id: ID;
+  bio?: string;
+  createdAt: DateTime;
+  email: string;
+  location?: string;
+  login: string;
+  name?: string;
+  projectsResourcePath: URI;
+  projectsUrl: URI;
+  updatedAt: DateTime;
+  url: URI;
+  websiteUrl?: URI;
+}
+
 export interface IGqlLanguage {
   id: ID;
   name: string;
