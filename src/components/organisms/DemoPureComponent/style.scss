@@ -1,0 +1,14 @@
+.DemoPureComponent {
+  max-width: 800px;
+  margin: 40px auto 0;
+
+  &__control {
+    * + * {
+      margin-left: 8px;
+    }
+  }
+
+  &__sample {
+    margin: 20px 0;
+  }
+}

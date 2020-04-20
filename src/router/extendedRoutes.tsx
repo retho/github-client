@@ -29,6 +29,9 @@ const demoTheme = extendRoute(routes.demoTheme, () => <DemoPage subject="theme" 
 const demoMedia = extendRoute(routes.demoMedia, () => <DemoPage subject="media" />);
 const demoForm = extendRoute(routes.demoForm, () => <DemoPage subject="form" />);
 const demoThunkVsRx = extendRoute(routes.demoThunkVsRx, () => <DemoPage subject="thunk-vs-rx" />);
+const demoPureComponent = extendRoute(routes.demoPureComponent, () => (
+  <DemoPage subject="pure-component" />
+));
 
 const extendedRoutes: Record<keyof typeof routes, IRouteWithRender<any, any>> = {
   root,
@@ -41,6 +44,7 @@ const extendedRoutes: Record<keyof typeof routes, IRouteWithRender<any, any>> = 
   demoMedia,
   demoForm,
   demoThunkVsRx,
+  demoPureComponent,
 };
 
 export default extendedRoutes;

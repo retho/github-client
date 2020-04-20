@@ -8,6 +8,7 @@ import DemoTheme from 'components/organisms/DemoTheme';
 import DemoMedia from 'components/organisms/DemoMedia';
 import DemoForm from 'components/organisms/DemoForm';
 import DemoThunkVsRx from 'components/organisms/DemoThunkVsRx';
+import DemoPureComponent from 'components/organisms/DemoPureComponent';
 
 const nav = {
   theme: {
@@ -29,6 +30,11 @@ const nav = {
     component: DemoThunkVsRx,
     title: 'redux-thunk vs redux-observable',
     url: stringifyRoute(routes.demoThunkVsRx, null, null),
+  },
+  'pure-component': {
+    component: DemoPureComponent,
+    title: 'Component vs PureComponent',
+    url: stringifyRoute(routes.demoPureComponent, null, null),
   },
 };
 
