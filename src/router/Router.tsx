@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react';
 import routes from './routes';
-import extendedRoutes from './extendedRoutes';
 import UrlPattern from 'url-pattern';
 import {useLocation, Redirect} from 'react-router-dom';
 import {stringifyRoute} from 'utils/router';
@@ -9,6 +8,10 @@ import {useSelector} from 'utils/redux';
 import GlobalMessagesWrapper from 'components/organisms/GlobalMessagesWrapper';
 import AuthPage from 'components/pages/AuthPage';
 import {useThemeProvider} from './hooks';
+
+const useCoreHooks = () => {
+  useThemeProvider();
+};
 
 const notFoundRoute = <Redirect to={stringifyRoute(routes.root, null, null)} />;
 
@@ -23,7 +26,7 @@ const getCurrentRoute = (
   if (!context.isAuthorized) {
     return <AuthPage />;
   }
-  for (const x of Object.values(extendedRoutes)) {
+  for (const x of Object.values(routes)) {
     const params = new UrlPattern(x.pattern).match(currentPath);
     if (params) return x.render(params, queryParams);
   }
@@ -31,7 +34,7 @@ const getCurrentRoute = (
 };
 
 const Router: React.FC = () => {
-  useThemeProvider();
+  useCoreHooks();
 
   const location = useLocation(); // ! использование `useLocation` в других компонентах не приветствуется
   const queryParams = useMemo(() => parse(location.search && location.search.slice(1)) as any, [

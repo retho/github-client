@@ -1,22 +1,33 @@
 import {createRoute} from 'router/core';
-
-type SearchQueryParams = 'q' | 'owners' | 'language';
+import {
+  rootRender,
+  searchRender,
+  searchAdvancedRender,
+  iconsRender,
+  specificIconRender,
+  demoRender,
+  demoMediaRender,
+  demoFormRender,
+  demoThunkVsRxRender,
+  demoThemeRender,
+  demoPureComponentRender,
+} from './routeRenders';
 
 const routes = {
-  root: createRoute<null, null>('/'),
+  root: createRoute('/', rootRender),
 
-  search: createRoute<null, SearchQueryParams>('search'),
-  searchAdvanced: createRoute<null, SearchQueryParams>('/search/advanced'),
+  search: createRoute('search', searchRender),
+  searchAdvanced: createRoute('/search/advanced', searchAdvancedRender),
 
-  icons: createRoute<null, null>('/icons'),
-  specificIcon: createRoute<'iconType', null>('/icons/:iconType'),
+  icons: createRoute('/icons', iconsRender),
+  specificIcon: createRoute('/icons/:iconType', specificIconRender),
 
-  demo: createRoute<null, null>('/demo'),
-  demoTheme: createRoute<null, null>('/demo/theme'),
-  demoMedia: createRoute<null, null>('/demo/media'),
-  demoForm: createRoute<null, null>('/demo/form'),
-  demoThunkVsRx: createRoute<null, null>('/demo/thunk-vs-rx'),
-  demoPureComponent: createRoute<null, null>('/demo/pure-component'),
+  demo: createRoute('/demo', demoRender),
+  demoTheme: createRoute('/demo/theme', demoThemeRender),
+  demoMedia: createRoute('/demo/media', demoMediaRender),
+  demoForm: createRoute('/demo/form', demoFormRender),
+  demoThunkVsRx: createRoute('/demo/thunk-vs-rx', demoThunkVsRxRender),
+  demoPureComponent: createRoute('/demo/pure-component', demoPureComponentRender),
 };
 
 export default routes;
