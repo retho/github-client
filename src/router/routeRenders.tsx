@@ -1,36 +1,72 @@
-import React from 'react';
+import React, {FC, Suspense} from 'react';
 import {createRouteRender} from 'router/core';
-
 import MainLayout from 'components/templates/MainLayout';
-import DemoPage from 'components/pages/DemoPage';
-import HomePage from 'components/pages/HomePage';
-import IconPage from 'components/pages/IconsPage';
-import SearchPage from 'components/pages/SearchPage';
+
+const DemoPage = React.lazy(() => import('components/pages/DemoPage'));
+const HomePage = React.lazy(() => import('components/pages/HomePage'));
+const IconPage = React.lazy(() => import('components/pages/IconsPage'));
+const SearchPage = React.lazy(() => import('components/pages/SearchPage'));
+
+const PageContentLoader: FC = () => <div>Loading...</div>;
 
 export const rootRender = createRouteRender(() => (
   <MainLayout>
-    <HomePage />
+    <Suspense fallback={<PageContentLoader />}>
+      <HomePage />
+    </Suspense>
   </MainLayout>
 ));
 
 type SearchQueryParams = 'q' | 'owners' | 'language';
 export const searchRender = createRouteRender<null, SearchQueryParams>((_, filters) => (
-  <SearchPage filters={filters} />
+  <Suspense fallback={<PageContentLoader />}>
+    <SearchPage filters={filters} />
+  </Suspense>
 ));
 export const searchAdvancedRender = createRouteRender<null, SearchQueryParams>((_, filters) => (
-  <SearchPage filters={filters} advanced />
+  <Suspense fallback={<PageContentLoader />}>
+    <SearchPage filters={filters} advanced />
+  </Suspense>
 ));
 
-export const iconsRender = createRouteRender(() => <IconPage />);
+export const iconsRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <IconPage />
+  </Suspense>
+));
 export const specificIconRender = createRouteRender<'iconType'>(({iconType}) => (
-  <IconPage selectedIcon={iconType} />
+  <Suspense fallback={<PageContentLoader />}>
+    <IconPage selectedIcon={iconType} />
+  </Suspense>
 ));
 
-export const demoRender = createRouteRender(() => <DemoPage />);
-export const demoThemeRender = createRouteRender(() => <DemoPage subject="theme" />);
-export const demoMediaRender = createRouteRender(() => <DemoPage subject="media" />);
-export const demoFormRender = createRouteRender(() => <DemoPage subject="form" />);
-export const demoThunkVsRxRender = createRouteRender(() => <DemoPage subject="thunk-vs-rx" />);
+export const demoRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage />
+  </Suspense>
+));
+export const demoThemeRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage subject="theme" />
+  </Suspense>
+));
+export const demoMediaRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage subject="media" />
+  </Suspense>
+));
+export const demoFormRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage subject="form" />
+  </Suspense>
+));
+export const demoThunkVsRxRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage subject="thunk-vs-rx" />
+  </Suspense>
+));
 export const demoPureComponentRender = createRouteRender(() => (
-  <DemoPage subject="pure-component" />
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage subject="pure-component" />
+  </Suspense>
 ));

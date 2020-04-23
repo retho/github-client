@@ -1,8 +1,7 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, FC} from 'react';
 import routes from './routes';
 import UrlPattern from 'url-pattern';
-import {useLocation, Redirect} from 'react-router-dom';
-import {stringifyRoute} from 'utils/router';
+import {useLocation} from 'react-router-dom';
 import {parse} from 'querystring';
 import {useSelector} from 'utils/redux';
 import GlobalMessagesWrapper from 'components/organisms/GlobalMessagesWrapper';
@@ -13,7 +12,7 @@ const useCoreHooks = () => {
   useThemeProvider();
 };
 
-const notFoundRoute = <Redirect to={stringifyRoute(routes.root, null, null)} />;
+const notFoundRoute = <div>404 Route not found</div>;
 
 interface IRouteContext {
   isAuthorized: boolean;

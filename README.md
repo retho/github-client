@@ -8,3 +8,7 @@
 - router
   - [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
   - [hookrouter](https://github.com/Paratron/hookrouter#readme)
+
+# Resources
+
+- https://loading.io/css/

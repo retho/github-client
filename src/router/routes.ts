@@ -16,7 +16,7 @@ import {
 const routes = {
   root: createRoute('/', rootRender),
 
-  search: createRoute('search', searchRender),
+  search: createRoute('/search', searchRender),
   searchAdvanced: createRoute('/search/advanced', searchAdvancedRender),
 
   icons: createRoute('/icons', iconsRender),
