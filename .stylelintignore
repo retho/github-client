@@ -1,0 +1,6 @@
+**/*.ts
+**/*.tsx
+
+build/**/*.css
+
+src/styles/presets.scss

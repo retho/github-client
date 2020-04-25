@@ -8,13 +8,14 @@
     "test": "react-scripts test",
     "test:ci": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
+    "stylelint": "stylelint \"src/**/*.scss\" --syntax scss",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:strict": "eslint --max-warnings=0 \"src/**/*.{ts,tsx}\"",
     "pretty": "pretty-quick src/**/*.{ts,tsx} --staged"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pretty && npm run lint:strict && npm run test:ci"
+      "pre-commit": "npm run pretty && npm run lint:strict && npm run stylelint && npm run test:ci"
     }
   },
   "eslintConfig": {
@@ -46,7 +47,9 @@
     "husky": "^3.1.0",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1"
+    "pretty-quick": "^2.0.1",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.2.1",

@@ -1,7 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import './style.scss';
-import ReactSwitch, { ReactSwitchProps } from 'react-switch';
+import ReactSwitch, {ReactSwitchProps} from 'react-switch';
 
 export interface ILangTogglerProps {
   className?: string;
