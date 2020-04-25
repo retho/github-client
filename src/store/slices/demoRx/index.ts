@@ -8,13 +8,13 @@ import {handleAjaxErrorRx, GithubApiError} from 'utils/ajax';
 
 const sliceName = getSliceName('demoRx');
 
-interface II18nState {
+interface IState {
   fetching: number;
   data: null | string;
   error: null | string;
 }
 
-const defaultState: II18nState = {
+const defaultState: IState = {
   fetching: 0,
   data: null,
   error: null,

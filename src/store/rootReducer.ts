@@ -7,6 +7,7 @@ import auth from './slices/auth';
 import globalMessages from './slices/globalMessages';
 import demoRx from './slices/demoRx';
 import demoThunk from './slices/demoThunk';
+import demoSaga from './slices/demoSaga';
 
 const rootReducer = combineReducers({
   i18n,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   globalMessages,
   demoRx,
   demoThunk,
+  demoSaga,
 });
 
 export default rootReducer;

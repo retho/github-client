@@ -55,6 +55,29 @@ export const handleAjaxError = (dispatch: AppDispatch) => (err: any): void => {
 
   throw err;
 };
+// TODO rework ajax error handling
+// export function* handleAjaxErrorSaga(err: any): StrictEffect {
+//   if (err instanceof GithubApiError) {
+//     if (err.status === 401) {
+//       yield put(logout());
+//       return;
+//     }
+
+//     yield put(
+//       showMessage({
+//         hideIn: null,
+//         message: {
+//           type: 'error',
+//           title: 'GithubApiError',
+//           description: err.data.message,
+//         },
+//       })
+//     );
+//     return;
+//   }
+
+//   throw err;
+// };
 export const handleAjaxErrorRx = (err: any): Observable<Action> => {
   console.error(err);
 
@@ -97,6 +120,8 @@ const ajaxBasic = async <R>({path, init, transformResponse}: IAjaxRequest<R>): P
 
   return await transformResponse(res);
 };
+
+export type Ajax = typeof ajaxBasic;
 
 interface IGraphqlResponseBody<R = any> {
   data: R;
@@ -162,7 +187,7 @@ export const withGithubAuthentication = (oauthToken: string | null) => <R>(
       };
 };
 
-export const ajaxCore = (getState: () => RootState): typeof ajaxBasic => (req) => {
+export const ajaxCore = (getState: () => RootState): Ajax => (req) => {
   return ajaxBasic(withGithubAuthentication(getState().auth.token)(req));
 };
 
