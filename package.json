@@ -11,15 +11,13 @@
     "stylelint": "stylelint \"src/**/*.scss\" --syntax scss",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:strict": "eslint --max-warnings=0 \"src/**/*.{ts,tsx}\"",
-    "pretty": "pretty-quick src/**/*.{ts,tsx} --staged"
+    "pretty": "pretty-quick src/**/*.{ts,tsx} --staged",
+    "checklist": "npm run lint:strict && npm run stylelint && npm run test:ci"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pretty && npm run lint:strict && npm run stylelint && npm run test:ci"
+      "pre-commit": "npm run pretty && npm run checklist"
     }
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
