@@ -1,5 +1,5 @@
 import React, {FC, Suspense} from 'react';
-import {createRouteRender} from 'router/core';
+import {createRouteRender, Empty} from 'router/core';
 import MainLayout from 'components/templates/MainLayout';
 
 const DemoPage = React.lazy(() => import('components/pages/DemoPage'));
@@ -18,12 +18,14 @@ export const rootRender = createRouteRender(() => (
 ));
 
 type SearchQueryParams = 'q' | 'owners' | 'language';
-export const searchRender = createRouteRender<null, SearchQueryParams>((_, filters) => (
-  <Suspense fallback={<PageContentLoader />}>
-    <SearchPage filters={filters} />
-  </Suspense>
-));
-export const searchAdvancedRender = createRouteRender<null, SearchQueryParams>((_, filters) => (
+export const searchRender = createRouteRender<Empty, SearchQueryParams>(
+  (_, {q, owners, language}) => (
+    <Suspense fallback={<PageContentLoader />}>
+      <SearchPage filters={{q, owners, language}} />
+    </Suspense>
+  )
+);
+export const searchAdvancedRender = createRouteRender<Empty, SearchQueryParams>((_, filters) => (
   <Suspense fallback={<PageContentLoader />}>
     <SearchPage filters={filters} advanced />
   </Suspense>
