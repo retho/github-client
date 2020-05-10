@@ -1,29 +1,29 @@
 import {configureStore, Action, getDefaultMiddleware} from '@reduxjs/toolkit';
 import {ThunkAction} from 'redux-thunk';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, from} from 'rxjs';
 import {createEpicMiddleware, Epic} from 'redux-observable';
 import {switchMap} from 'rxjs/operators';
 
 import rootEpic from './rootEpic';
 import rootReducer from './rootReducer';
-import {rxajax, ajaxCore, Ajax} from 'utils/ajax';
+import {genAjax} from 'utils/ajax';
 import rootSaga from './rootSaga';
 import createSagaMiddleware, {SagaIterator} from 'redux-saga';
+import {Ajax, IAjaxRequest} from 'utils/ajax/ajax';
 
-export interface IAppSagaContext {
+export interface IMiddlewareDeps {
   ajax: Ajax;
-  aaa: number;
 }
 
-const thunkExtraArgument = {
-  ajax: ajaxCore,
+const thunkExtraArgument: IMiddlewareDeps = {
+  ajax: null as any,
 };
 const rxDependencies = {
-  ajax: rxajax,
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  ajax: (null as any) as typeof rxAjax,
 };
-const sagaContext: IAppSagaContext = {
+const sagaContext: IMiddlewareDeps = {
   ajax: null as any,
-  aaa: 1414,
 };
 
 const epicMiddleware = createEpicMiddleware({dependencies: rxDependencies});
@@ -41,7 +41,13 @@ const store = configureStore({
     sagaMiddleware,
   ],
 });
-sagaContext.ajax = ajaxCore(store.getState);
+
+const bindedAjax = genAjax(store);
+const rxAjax = <D>(params: IAjaxRequest<D>) => from(bindedAjax(params));
+
+thunkExtraArgument.ajax = genAjax(store);
+rxDependencies.ajax = rxAjax;
+sagaContext.ajax = genAjax(store);
 
 const epic$ = new BehaviorSubject(rootEpic);
 const hotReloadingEpic = (...args: any[]): any =>
@@ -65,10 +71,12 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
   });
 }
 
+export type AppStore = typeof store;
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk = ThunkAction<void, RootState, typeof thunkExtraArgument, Action<string>>;
 export type AppEpicDeps = typeof rxDependencies;
+export type AppSagaContext = typeof sagaContext;
 export type AppEpic = Epic<Action, Action, RootState, AppEpicDeps>;
 export type AppSagaIterator = SagaIterator;
 

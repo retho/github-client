@@ -1,10 +1,9 @@
 import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {getSliceName} from 'utils/redux';
 import {AppEpic} from 'store';
-import {filter, map, catchError, concatAll, take} from 'rxjs/operators';
-import {from, of, throwError, race, timer} from 'rxjs';
+import {filter, map, concatAll, take} from 'rxjs/operators';
+import {from, of, race, timer} from 'rxjs';
 import {queryLoadData} from './gql';
-import {handleAjaxErrorRx, GithubApiError} from 'utils/ajax';
 
 const sliceName = getSliceName('demoRx');
 
@@ -57,16 +56,14 @@ export const epicDemoRxLoadData: AppEpic = (action$, state$, {ajax}) =>
             map(() => setError('Cancelled by user.'))
           ),
           timer(1500).pipe(
-            map(() => ajax(state$)(queryLoadData({}))),
+            map(() => ajax(queryLoadData({}))),
             concatAll(),
-            map(([x]) => setData(x.data.viewer.login)),
-            catchError((err) => {
-              if (err instanceof GithubApiError) {
-                return of(setError('Api error.')); // TODO need handle 401 Unauthorized
+            map((reply) => {
+              if (reply.kind === 'success') {
+                return setData(reply.data.data.viewer.login);
               }
-              return throwError(err);
-            }),
-            catchError(handleAjaxErrorRx)
+              return setError('Request error.');
+            })
           )
         ),
         of(fetchingDown()),

@@ -2,7 +2,6 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {getSliceName} from 'utils/redux';
 import {AppThunk} from 'store';
 import {queryLoadData} from './gql';
-import {GithubApiError, handleAjaxError} from 'utils/ajax';
 import {sleep} from 'utils/async';
 
 const sliceName = getSliceName('demoThunk');
@@ -41,19 +40,18 @@ export default slice.reducer;
 
 export const loadData = (): AppThunk => async (dispatch, getState, {ajax}) => {
   dispatch(fetchingUp());
-  try {
-    dispatch(setData(null));
-    dispatch(setError(null));
-    await sleep(1500);
-    const [res] = await ajax(getState)(queryLoadData({}));
-    dispatch(setData(res.data.viewer.login));
-  } catch (err) {
-    if (err instanceof GithubApiError) {
-      dispatch(setError('Api error'));
-      throw err; // TODO app crashes
-    }
-    handleAjaxError(dispatch)(err);
-  } finally {
-    dispatch(fetchingDown());
+
+  dispatch(setData(null));
+  dispatch(setError(null));
+  await sleep(1500);
+  const reply = await ajax(queryLoadData({}));
+  if (reply.kind === 'success') {
+    dispatch(setData(reply.data.data.viewer.login));
+  } else if (reply.kind === 'api-error') {
+    dispatch(setError('Api error'));
+  } else {
+    dispatch(setError('Unknown error'));
   }
+
+  dispatch(fetchingDown());
 };

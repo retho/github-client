@@ -1,10 +1,10 @@
 import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {getSliceName} from 'utils/redux';
-import {AppSagaIterator, RootState, IAppSagaContext} from 'store';
+import {AppSagaIterator, RootState, AppSagaContext} from 'store';
 import {put, takeEvery, takeLatest, fork, select, getContext, call} from 'redux-saga/effects';
 import {sleep} from 'utils/async';
 import {queryLoadData} from './gql';
-import {GithubApiError} from 'utils/ajax';
+import {AjaxReply} from 'utils/ajax/ajax';
 
 const sliceName = getSliceName('demoSaga');
 
@@ -61,21 +61,19 @@ export default slice.reducer;
 
 export const loadData = createAction<null>(`${sliceName}/loadData`);
 function* handleLoadData(): AppSagaIterator {
-  const ajax: IAppSagaContext['ajax'] = yield getContext('ajax');
+  const ajax: AppSagaContext['ajax'] = yield getContext('ajax');
+
   yield put(fetchingUp());
   yield put(setData(null));
-  try {
-    const [res] = yield call(ajax, queryLoadData({}));
-    yield put(setData(res.data.viewer.login));
-  } catch (err) {
-    if (err instanceof GithubApiError) {
-      yield put(setError('Api error'));
-    } else {
-      throw err;
-    }
-  } finally {
-    yield put(fetchingDown());
+
+  const reply: AjaxReply<any> = yield call(ajax, queryLoadData({}));
+  if (reply.kind === 'success') {
+    yield put(setData(reply.data.data.viewer.login));
+  } else {
+    yield put(setError('Request error'));
   }
+
+  yield put(fetchingDown());
 }
 function* watchLoadData(): AppSagaIterator {
   yield takeLatest(loadData.match as any, handleLoadData);
