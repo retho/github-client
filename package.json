@@ -12,6 +12,7 @@
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:strict": "eslint --max-warnings=0 \"src/**/*.{ts,tsx}\"",
     "pretty": "pretty-quick src/**/*.{ts,tsx} --staged",
+    "pretty:all": "prettier --write src/**/*.{ts,tsx}",
     "checklist": "npm run lint:strict && npm run stylelint && npm run test:ci"
   },
   "husky": {
