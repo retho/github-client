@@ -1,7 +1,14 @@
-export type ID = string;
-export type URI = string;
-export type DateTime = string;
-export type Int = number;
+import {Brand} from 'utils/common';
+
+const IDBrand = Symbol('ID');
+const URIBrand = Symbol('URI');
+const DateTimeBrand = Symbol('DateTime');
+const IntBrand = Symbol('Int');
+
+export type ID = Brand<string, typeof IDBrand>;
+export type URI = Brand<string, typeof URIBrand>;
+export type DateTime = Brand<string, typeof DateTimeBrand>;
+export type Int = Brand<number, typeof IntBrand>;
 
 export interface IGqlUser {
   id: ID;

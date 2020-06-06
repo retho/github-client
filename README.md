@@ -8,6 +8,8 @@
 - router
   - [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
   - [hookrouter](https://github.com/Paratron/hookrouter#readme)
+- https://habr.com/ru/company/tinkoff/blog/505488/
+  - https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/
 
 # Resources
 
