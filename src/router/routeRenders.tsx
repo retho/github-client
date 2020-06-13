@@ -72,3 +72,8 @@ export const demoPureComponentRender = createRouteRender(() => (
     <DemoPage subject="pure-component" />
   </Suspense>
 ));
+export const demoSvgRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage subject="svg" />
+  </Suspense>
+));

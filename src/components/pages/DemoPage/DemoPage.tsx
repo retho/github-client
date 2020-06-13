@@ -9,6 +9,7 @@ import DemoMedia from 'components/organisms/DemoMedia';
 import DemoForm from 'components/organisms/DemoForm';
 import DemoThunkVsRx from 'components/organisms/DemoThunkVsRx';
 import DemoPureComponent from 'components/organisms/DemoPureComponent';
+import DemoSvgMap from 'components/organisms/DemoSvgMap';
 
 const nav = {
   theme: {
@@ -35,6 +36,11 @@ const nav = {
     component: DemoPureComponent,
     title: 'Component vs PureComponent',
     url: stringifyRoute(routes.demoPureComponent, null, null),
+  },
+  svg: {
+    component: DemoSvgMap,
+    title: 'svg map',
+    url: stringifyRoute(routes.demoSvgMap, null, null),
   },
 };
 

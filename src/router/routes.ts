@@ -11,6 +11,7 @@ import {
   demoThunkVsRxRender,
   demoThemeRender,
   demoPureComponentRender,
+  demoSvgRender,
 } from './routeRenders';
 
 const routes = {
@@ -28,6 +29,7 @@ const routes = {
   demoForm: createRoute('/demo/form', demoFormRender),
   demoThunkVsRx: createRoute('/demo/thunk-vs-rx', demoThunkVsRxRender),
   demoPureComponent: createRoute('/demo/pure-component', demoPureComponentRender),
+  demoSvgMap: createRoute('/demo/svg-map', demoSvgRender),
 };
 
 export default routes;
