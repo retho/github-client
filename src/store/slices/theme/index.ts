@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getSliceName } from 'utils/redux';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {getSliceName} from 'utils/redux';
 
 const sliceName = getSliceName('theme');
 
@@ -18,11 +18,11 @@ const slice = createSlice({
   name: sliceName,
   initialState: defaultState,
   reducers: {
-    switchTheme: (state, { payload }: PayloadAction<Theme>) => ({
+    switchTheme: (state, {payload}: PayloadAction<Theme>) => ({
       ...state,
       theme: payload,
     }),
   },
 });
-export const { switchTheme } = slice.actions;
+export const {switchTheme} = slice.actions;
 export default slice.reducer;

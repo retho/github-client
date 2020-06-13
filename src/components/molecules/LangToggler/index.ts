@@ -1,1 +1,1 @@
-export { default } from './LangToggler';
+export {default} from './LangToggler';

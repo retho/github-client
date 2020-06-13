@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
+import {highlight, languages} from 'prismjs/components/prism-core';
 import 'prismjs/themes/prism.css';
 import 'prismjs/components/prism-graphql';
 import 'prismjs/components/prism-json';
@@ -18,12 +18,7 @@ export interface ICodeEditorProps {
   onChange: (val: string) => void;
   readOnly?: boolean;
 }
-const CodeEditor: React.FC<ICodeEditorProps> = ({
-  lang,
-  value,
-  onChange,
-  readOnly,
-}) => {
+const CodeEditor: React.FC<ICodeEditorProps> = ({lang, value, onChange, readOnly}) => {
   return (
     <Editor
       value={value}

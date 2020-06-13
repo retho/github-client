@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { gqlQuery } from 'utils/ajax';
+import {gqlQuery} from 'utils/ajax';
 import {
   IGqlLanguage,
   IGqlRepository,

@@ -1,9 +1,9 @@
 import React from 'react';
 import './style.scss';
-import SvgIcon, { allSvgIconTypes } from 'components/atoms/SvgIcon/SvgIcon';
-import { Link } from 'react-router-dom';
-import { routes } from 'router';
-import { stringifyRoute } from 'utils/router';
+import SvgIcon, {allSvgIconTypes} from 'components/atoms/SvgIcon/SvgIcon';
+import {Link} from 'react-router-dom';
+import {routes} from 'router';
+import {stringifyRoute} from 'utils/router';
 
 interface IIconsListProps {}
 const IconsList: React.FC<IIconsListProps> = () => {
@@ -13,7 +13,7 @@ const IconsList: React.FC<IIconsListProps> = () => {
         <Link
           key={x}
           className="IconsList-item IconsList__item"
-          to={stringifyRoute(routes.specificIcon, { iconType: x }, null)}
+          to={stringifyRoute(routes.specificIcon, {iconType: x}, null)}
         >
           <SvgIcon className="IconPage-icons-list-item__icon" type={x} />
           {x}

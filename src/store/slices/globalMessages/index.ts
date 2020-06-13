@@ -1,16 +1,9 @@
-import { createSlice, PayloadAction, createAction } from '@reduxjs/toolkit';
-import { AppEpic } from 'store';
-import {
-  filter,
-  map,
-  concatAll,
-  mapTo,
-  mergeAll,
-  ignoreElements,
-} from 'rxjs/operators';
-import { from, of, race, timer, interval } from 'rxjs';
-import { IGlobalMessage } from 'components/organisms/GlobalMessagesWrapper/GlobalMessage/GlobalMessage';
-import { getSliceName } from 'utils/redux';
+import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
+import {AppEpic} from 'store';
+import {filter, map, concatAll, mapTo, mergeAll, ignoreElements} from 'rxjs/operators';
+import {from, of, race, timer, interval} from 'rxjs';
+import {IGlobalMessage} from 'components/organisms/GlobalMessagesWrapper/GlobalMessage/GlobalMessage';
+import {getSliceName} from 'utils/redux';
 
 const sliceName = getSliceName('globalMessages');
 
@@ -28,28 +21,26 @@ const slice = createSlice({
   initialState: defaultState,
   reducers: {
     reset: () => defaultState,
-    addMessage: (state, { payload }: PayloadAction<IGlobalMessage>) => ({
+    addMessage: (state, {payload}: PayloadAction<IGlobalMessage>) => ({
       ...state,
       nextId: payload.id + 1,
       messages: state.messages.concat([payload]),
     }),
-    removeMessage: (state, { payload }: PayloadAction<number>) => ({
+    removeMessage: (state, {payload}: PayloadAction<number>) => ({
       ...state,
       messages: state.messages.filter((x) => x.id !== payload),
     }),
   },
 });
 
-const { addMessage, removeMessage } = slice.actions;
+const {addMessage, removeMessage} = slice.actions;
 export default slice.reducer;
 
 export interface IShowMessagePayload {
   message: Omit<IGlobalMessage, 'id'>;
   hideIn: null | number;
 }
-export const showMessage = createAction<IShowMessagePayload>(
-  `${sliceName}/showMessage`
-);
+export const showMessage = createAction<IShowMessagePayload>(`${sliceName}/showMessage`);
 export const hideMessage = createAction<number>(`${sliceName}/hideMessage`);
 export const epicShowMessage: AppEpic = (action$, state$) =>
   action$.pipe(
@@ -58,17 +49,15 @@ export const epicShowMessage: AppEpic = (action$, state$) =>
       payload: action.payload,
       messageId: state$.value.globalMessages.nextId,
     })),
-    map(({ payload, messageId }) =>
+    map(({payload, messageId}) =>
       from([
-        of(addMessage({ id: messageId, ...payload.message })),
+        of(addMessage({id: messageId, ...payload.message})),
         race([
           action$.pipe(
             filter(hideMessage.match),
             filter((act) => act.payload === messageId)
           ),
-          payload.hideIn
-            ? timer(payload.hideIn)
-            : interval(100_000_000).pipe(ignoreElements()),
+          payload.hideIn ? timer(payload.hideIn) : interval(100_000_000).pipe(ignoreElements()),
         ]).pipe(mapTo(removeMessage(messageId))),
       ])
     ),

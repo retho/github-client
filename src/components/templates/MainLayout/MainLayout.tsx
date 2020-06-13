@@ -5,7 +5,7 @@ import AppHeader from 'components/organisms/AppHeader';
 export interface IMainLayoutProps {
   children?: JSX.Element;
 }
-const MainLayout: React.FC<IMainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<IMainLayoutProps> = ({children}) => {
   return (
     <div className="MainLayout">
       <AppHeader className="MainLayout__header" />

@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.scss';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'utils/redux';
-import { SupportedLang, switchLang } from 'store/slices/i18n';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'utils/redux';
+import {SupportedLang, switchLang} from 'store/slices/i18n';
 import cn from 'classnames';
 import Switch from 'components/atoms/Switch';
 

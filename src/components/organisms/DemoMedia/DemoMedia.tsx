@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.scss';
-import { useMedia, MediaBreakpoints } from 'utils/media';
+import {useMedia, MediaBreakpoints} from 'utils/media';
 
 export interface IDemoMediaProps {}
 const DemoMedia: React.FC<IDemoMediaProps> = () => {

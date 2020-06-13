@@ -1,1 +1,1 @@
-export { default } from './IconsPage';
+export {default} from './IconsPage';

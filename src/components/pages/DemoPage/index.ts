@@ -1,1 +1,1 @@
-export { default } from './DemoPage';
+export {default} from './DemoPage';

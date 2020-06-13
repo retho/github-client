@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import cn from 'classnames';
 import './style.scss';
 import SvgIcon from 'components/atoms/SvgIcon';
 import LangToggler from 'components/molecules/LangToggler';
 import i18n from './i18n';
-import { useLocale } from 'utils/i18n';
-import { Link, useHistory } from 'react-router-dom';
-import { stringifyRoute } from 'utils/router';
-import { routes } from 'router';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'utils/redux';
-import { logout } from 'store/epics';
-import { getUserInfo } from 'store/slices/auth';
+import {useLocale} from 'utils/i18n';
+import {Link, useHistory} from 'react-router-dom';
+import {stringifyRoute} from 'utils/router';
+import {routes} from 'router';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'utils/redux';
+import {logout} from 'store/epics';
+import {getUserInfo} from 'store/slices/auth';
 
 export interface IAppHeaderProps {
   className?: string;
 }
-const AppHeader: React.FC<IAppHeaderProps> = ({ className }) => {
+const AppHeader: React.FC<IAppHeaderProps> = ({className}) => {
   const locale = useLocale(i18n);
 
   const history = useHistory();
@@ -28,7 +28,7 @@ const AppHeader: React.FC<IAppHeaderProps> = ({ className }) => {
   const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.which === 13) {
       // * enter
-      history.push(stringifyRoute(routes.search, null, { q: search }));
+      history.push(stringifyRoute(routes.search, null, {q: search}));
     }
   };
 
@@ -55,16 +55,10 @@ const AppHeader: React.FC<IAppHeaderProps> = ({ className }) => {
         onChange={(e) => setSearch(e.target.value)}
         onKeyPress={handleInputKeyPress}
       />
-      <Link
-        className="AppHeader__link"
-        to={stringifyRoute(routes.icons, null, null)}
-      >
+      <Link className="AppHeader__link" to={stringifyRoute(routes.icons, null, null)}>
         {locale.icons}
       </Link>
-      <Link
-        className="AppHeader__link"
-        to={stringifyRoute(routes.demo, null, null)}
-      >
+      <Link className="AppHeader__link" to={stringifyRoute(routes.demo, null, null)}>
         {locale.demo}
       </Link>
       <div className="AppHeader__right-panel">

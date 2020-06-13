@@ -1,1 +1,1 @@
-export { default } from './GlobalMessagesWrapper';
+export {default} from './GlobalMessagesWrapper';

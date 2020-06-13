@@ -1,1 +1,1 @@
-export { default } from './DemoMedia';
+export {default} from './DemoMedia';

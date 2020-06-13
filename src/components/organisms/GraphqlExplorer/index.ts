@@ -1,1 +1,1 @@
-export { default } from './GraphqlExplorer';
+export {default} from './GraphqlExplorer';

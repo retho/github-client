@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import './style.scss';
 import i18n from './i18n';
-import { useLocale } from 'utils/i18n';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'utils/redux';
-import { useHistory } from 'react-router';
-import { searchRepository } from 'store/slices/search';
-import { useFormik } from 'formik';
-import { compact, identity, pickBy } from 'lodash-es';
-import { stringifyRoute } from 'utils/router';
-import { routes } from 'router';
+import {useLocale} from 'utils/i18n';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'utils/redux';
+import {useHistory} from 'react-router';
+import {searchRepository} from 'store/slices/search';
+import {useFormik} from 'formik';
+import {compact, identity, pickBy} from 'lodash-es';
+import {stringifyRoute} from 'utils/router';
+import {routes} from 'router';
 import SvgIcon from 'components/atoms/SvgIcon';
 import MainLayout from 'components/templates/MainLayout';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 interface ISearchFilters {
   q?: string;
@@ -22,7 +22,7 @@ interface ISearchFilters {
 
 interface IFormikValues extends ISearchFilters {}
 
-const filters2query = ({ q, owners, language }: ISearchFilters) =>
+const filters2query = ({q, owners, language}: ISearchFilters) =>
   compact([q, owners && `owners:${owners}`, language && `language:${language}`])
     .join('+')
     .toLowerCase();
@@ -31,7 +31,7 @@ export interface ISearchPageProps {
   filters: ISearchFilters;
   advanced?: boolean;
 }
-const SearchPage: React.FC<ISearchPageProps> = ({ filters, advanced }) => {
+const SearchPage: React.FC<ISearchPageProps> = ({filters, advanced}) => {
   const locale = useLocale(i18n);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -42,7 +42,7 @@ const SearchPage: React.FC<ISearchPageProps> = ({ filters, advanced }) => {
 
   useEffect(() => {
     if (filters.q) {
-      dispatch(searchRepository({ q: filters2query(filters), first: 10 }));
+      dispatch(searchRepository({q: filters2query(filters), first: 10}));
     }
   }, [filters]);
 
@@ -68,10 +68,7 @@ const SearchPage: React.FC<ISearchPageProps> = ({ filters, advanced }) => {
   return (
     <MainLayout>
       <div className="SearchPage">
-        <form
-          className="SearchPage-form SearchPage__form"
-          onSubmit={formik.handleSubmit}
-        >
+        <form className="SearchPage-form SearchPage__form" onSubmit={formik.handleSubmit}>
           <div className="SearchPage-form__search">
             <label>
               {advanced ? (
@@ -123,10 +120,7 @@ const SearchPage: React.FC<ISearchPageProps> = ({ filters, advanced }) => {
             <h1>{!isFetching ? locale.resultsFound(resultsCount) : '...'}</h1>
             <div className="SearchPage-results__list">
               {foundRepos.map((x) => (
-                <div
-                  key={x.id}
-                  className="SearchPage-result-item SearchPage-results__list-item"
-                >
+                <div key={x.id} className="SearchPage-result-item SearchPage-results__list-item">
                   <div className="SearchPage-result-item__icon">
                     <SvgIcon type="octicon-repo" />
                   </div>
@@ -136,9 +130,7 @@ const SearchPage: React.FC<ISearchPageProps> = ({ filters, advanced }) => {
                         {x.nameWithOwner}
                       </a>
                     </div>
-                    <div className="SearchPage-result-item__description">
-                      {x.description}
-                    </div>
+                    <div className="SearchPage-result-item__description">{x.description}</div>
                     <div className="SearchPage-result-item__topics">
                       {x.repositoryTopics.nodes.map((y) => (
                         <a
@@ -155,14 +147,10 @@ const SearchPage: React.FC<ISearchPageProps> = ({ filters, advanced }) => {
                     <div className="SearchPage-result-item__meta-info">
                       <SvgIcon type="octicon-star" /> {x.stargazers.totalCount}
                       {x.primaryLanguage && (
-                        <span>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{x.primaryLanguage.name}
-                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{x.primaryLanguage.name}</span>
                       )}
                       {x.licenseInfo && (
-                        <span>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{x.licenseInfo.name}
-                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{x.licenseInfo.name}</span>
                       )}
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Updated at {x.updatedAt}
                     </div>

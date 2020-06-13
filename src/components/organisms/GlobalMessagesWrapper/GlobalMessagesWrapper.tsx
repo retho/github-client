@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import GlobalMessage from './GlobalMessage';
-import { useSelector } from 'utils/redux';
+import {useSelector} from 'utils/redux';
 
 export interface IGlobalMessagesWrapperProps {}
 const GlobalMessagesWrapper: React.FC<IGlobalMessagesWrapperProps> = () => {
@@ -10,11 +10,7 @@ const GlobalMessagesWrapper: React.FC<IGlobalMessagesWrapperProps> = () => {
   return (
     <div className="GlobalMessagesWrapper">
       {mgs.map((x) => (
-        <GlobalMessage
-          key={x.id}
-          className="GlobalMessagesWrapper__message"
-          message={x}
-        />
+        <GlobalMessage key={x.id} className="GlobalMessagesWrapper__message" message={x} />
       ))}
     </div>
   );

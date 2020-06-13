@@ -1,1 +1,1 @@
-export { default } from './GlobalMessage';
+export {default} from './GlobalMessage';

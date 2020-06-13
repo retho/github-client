@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getSliceName } from 'utils/redux';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {getSliceName} from 'utils/redux';
 
 const sliceName = getSliceName('counter');
 
@@ -18,11 +18,11 @@ const slice = createSlice({
   name: sliceName,
   initialState: defaultState,
   reducers: {
-    switchLang: (state, { payload }: PayloadAction<SupportedLang>) => ({
+    switchLang: (state, {payload}: PayloadAction<SupportedLang>) => ({
       ...state,
       lang: payload,
     }),
   },
 });
-export const { switchLang } = slice.actions;
+export const {switchLang} = slice.actions;
 export default slice.reducer;

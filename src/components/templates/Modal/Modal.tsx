@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import cn from 'classnames';
 import './style.scss';
 import SvgIcon from 'components/atoms/SvgIcon';
-import { stopPropagation } from 'utils/common';
+import {stopPropagation} from 'utils/common';
 
 const getForegroundNode = () => {
   const foregroundNode = document.querySelector('#foreground');
@@ -18,12 +18,9 @@ export interface IModalProps {
   open: boolean;
   onClose?: () => void;
 }
-const Modal: React.FC<IModalProps> = ({ children, open, onClose }) => {
+const Modal: React.FC<IModalProps> = ({children, open, onClose}) => {
   return ReactDom.createPortal(
-    <div
-      className={cn('Modal-wrapper', !open && 'Modal-wrapper--closed')}
-      onClick={onClose}
-    >
+    <div className={cn('Modal-wrapper', !open && 'Modal-wrapper--closed')} onClick={onClose}>
       <div className="Modal" onClick={stopPropagation}>
         <SvgIcon className="Modal__x" type="octicon-x" onClick={onClose} />
         {children}
