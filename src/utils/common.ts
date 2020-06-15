@@ -11,5 +11,5 @@ export const useForceRender = () => useReducer((s) => s + 1, 0)[1] as () => void
 // * https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/
 const brand = Symbol('brand');
 const flavor = Symbol('flavor');
-export type Brand<T, U> = T & {[brand]: U};
-export type Flavor<T, U> = T & {[flavor]?: U};
+export type Brand<U extends symbol, T> = {[brand]: U} & T;
+export type Flavor<U extends symbol, T> = {[flavor]?: U} & T;

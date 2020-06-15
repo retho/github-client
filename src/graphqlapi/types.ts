@@ -5,10 +5,10 @@ const URIBrand = Symbol('URI');
 const DateTimeBrand = Symbol('DateTime');
 const IntBrand = Symbol('Int');
 
-export type ID = Brand<string, typeof IDBrand>;
-export type URI = Brand<string, typeof URIBrand>;
-export type DateTime = Brand<string, typeof DateTimeBrand>;
-export type Int = Brand<number, typeof IntBrand>;
+export type ID = Brand<typeof IDBrand, string>;
+export type URI = Brand<typeof URIBrand, string>;
+export type DateTime = Brand<typeof DateTimeBrand, string>;
+export type Int = Brand<typeof IntBrand, number>;
 
 export interface IGqlUser {
   id: ID;
