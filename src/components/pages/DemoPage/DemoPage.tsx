@@ -4,14 +4,21 @@ import MainLayout from 'components/templates/MainLayout';
 import {Link} from 'react-router-dom';
 import {stringifyRoute} from 'utils/router';
 import {routes} from 'router';
+import DemoEmpty from 'components/organisms/DemoEmpty';
 import DemoTheme from 'components/organisms/DemoTheme';
 import DemoMedia from 'components/organisms/DemoMedia';
 import DemoForm from 'components/organisms/DemoForm';
 import DemoThunkVsRx from 'components/organisms/DemoThunkVsRx';
 import DemoPureComponent from 'components/organisms/DemoPureComponent';
 import DemoSvgMap from 'components/organisms/DemoSvgMap';
+import DemoRxJs from 'components/organisms/DemoRxJs';
 
 const nav = {
+  empty: {
+    component: DemoEmpty,
+    title: 'empty',
+    url: stringifyRoute(routes.demoEmpty, null, null),
+  },
   theme: {
     component: DemoTheme,
     title: 'theme',
@@ -41,6 +48,11 @@ const nav = {
     component: DemoSvgMap,
     title: 'svg map',
     url: stringifyRoute(routes.demoSvgMap, null, null),
+  },
+  rxjs: {
+    component: DemoRxJs,
+    title: 'rxjs',
+    url: stringifyRoute(routes.demoRxJs, null, null),
   },
 };
 

@@ -77,3 +77,13 @@ export const demoSvgRender = createRouteRender(() => (
     <DemoPage subject="svg" />
   </Suspense>
 ));
+export const demoRxJsRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage subject="rxjs" />
+  </Suspense>
+));
+export const demoEmptyRender = createRouteRender(() => (
+  <Suspense fallback={<PageContentLoader />}>
+    <DemoPage subject="empty" />
+  </Suspense>
+));
