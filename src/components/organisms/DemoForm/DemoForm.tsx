@@ -25,21 +25,21 @@ const DemoForm: React.FC<IDemoFormProps> = () => {
       unofficialMonthlyIncome: '5000',
       generalError: null,
     },
-    validate: async (values) => {
-      const errors: FormikErrors<IFormValues> = {};
-      if (+values.age < 21) {
-        errors.age = 'Вы должны быть старше 21 года';
+    validate: async (vals) => {
+      const errs: FormikErrors<IFormValues> = {};
+      if (+vals.age < 21) {
+        errs.age = 'Вы должны быть старше 21 года';
       }
       await sleep(1000);
-      if (+values.monthlyIncome + +values.unofficialMonthlyIncome < 30000) {
-        errors.generalError = 'Суммарный ежемесячный доход должен быть выше 30 000';
+      if (+vals.monthlyIncome + +vals.unofficialMonthlyIncome < 30000) {
+        errs.generalError = 'Суммарный ежемесячный доход должен быть выше 30 000';
       }
-      return errors;
+      return errs;
     },
-    onSubmit: async (values, helpers) => {
+    onSubmit: async (vals, helpers) => {
       await sleep(1000);
       // eslint-disable-next-line no-console
-      console.log('form submitted', values);
+      console.log('form submitted', vals);
       dispatch(
         showMessage({
           message: {

@@ -17,7 +17,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    // project: './tsconfig.json',
   },
   plugins: [
     '@typescript-eslint',
@@ -44,8 +45,20 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/camelcase': 'off',
     'no-empty': ['error', {allowEmptyCatch: true}],
+    'no-eval': 'error',
     'no-alert': 'error',
     'no-debugger': 'warn',
-    'no-console': ['warn', {allow: ['error']}]
+    'no-console': ['warn', {allow: ['error']}],
+    'no-labels': 'error',
+    'no-shadow': 'error',
+    'no-constant-condition': 'warn',
+    'no-unreachable': 'warn',
+    'default-case': 'warn',
+    // ! 'default-case-last': 'warn',
+    'eqeqeq': 'error',
+    '@typescript-eslint/array-type': 'warn',
+    // ! consistent-type-definitions
+    // ! '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+    // ! '@typescript-eslint/prefer-optional-chain': 'warn',
   }
 }
