@@ -14,3 +14,10 @@
 # Resources
 
 - https://loading.io/css/
+
+# Useful links
+
+- type vs interface
+  - https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c
+  - https://frontend-stuff.com/blog/types-vs-interfaces/
+- https://polyfill.io/v3/packages/
