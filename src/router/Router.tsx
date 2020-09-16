@@ -1,12 +1,12 @@
 import React, {useMemo, FC} from 'react';
 import routes from './routes';
-import UrlPattern from 'url-pattern';
 import {useLocation} from 'react-router-dom';
-import {parse} from 'querystring';
 import {useSelector} from 'utils/redux';
 import GlobalMessagesWrapper from 'components/organisms/GlobalMessagesWrapper';
 import AuthPage from 'components/pages/AuthPage';
 import {useThemeProvider} from './hooks';
+import {matchRoute} from 'utils/router';
+import {Empty} from './core';
 
 const useCoreHooks = () => {
   useThemeProvider();
@@ -17,33 +17,30 @@ const notFoundRoute = <div>404 Route not found</div>;
 interface IRouteContext {
   isAuthorized: boolean;
 }
-const getCurrentRoute = (
-  context: IRouteContext,
-  currentPath: string,
-  queryParams: Record<string, string>
-) => {
+const getCurrentRoute = (context: IRouteContext, path: string, search: string) => {
   if (!context.isAuthorized) {
     return <AuthPage />;
   }
-  for (const x of Object.values(routes)) {
-    const params = new UrlPattern(x.pattern).match(currentPath);
-    if (params) return x.render(params, queryParams);
+  for (const r of Object.values(routes)) {
+    const matched = matchRoute<string | Empty, string | Empty>(r, path, search);
+
+    if (matched) {
+      const [params, query] = matched;
+      return r.render(params, query);
+    }
   }
   return null;
 };
 
-const Router: React.FC = () => {
+const Router: FC = () => {
   useCoreHooks();
 
-  const location = useLocation(); // ! использование `useLocation` в других компонентах не приветствуется
-  const queryParams = useMemo(() => parse(location.search && location.search.slice(1)) as any, [
-    location.search,
-  ]);
+  const location = useLocation();
   const isAuthorized = useSelector((state) => !!state.auth.token);
 
-  const route = useMemo(() => getCurrentRoute({isAuthorized}, location.pathname, queryParams), [
+  const route = useMemo(() => getCurrentRoute({isAuthorized}, location.pathname, location.search), [
     location.pathname,
-    queryParams,
+    location.search,
     isAuthorized,
   ]);
 
