@@ -1,3 +1,31 @@
 @import '~normalize.css';
 @import './presets.scss';
 @import './themes.scss';
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+* {
+  &::-webkit-scrollbar-track {
+    border-radius: 1.5px;
+    background-color: #ffff;
+  }
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    background-color: #e4e4e4;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1.5px;
+    background-color: #e4e4e4;
+  }
+}
