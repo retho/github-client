@@ -8,10 +8,6 @@ import {useThemeProvider} from './hooks';
 import {matchRoute} from 'utils/router';
 import {Empty} from './core';
 
-const useCoreHooks = () => {
-  useThemeProvider();
-};
-
 const notFoundRoute = <div>404 Route not found</div>;
 
 interface IRouteContext {
@@ -33,7 +29,7 @@ const getCurrentRoute = (context: IRouteContext, path: string, search: string) =
 };
 
 const Router: FC = () => {
-  useCoreHooks();
+  useThemeProvider();
 
   const location = useLocation();
   const isAuthorized = useSelector((state) => !!state.auth.token);

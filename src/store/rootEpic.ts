@@ -6,15 +6,13 @@ import freeEpics from './epics';
 import {epicUserInfo} from './slices/auth';
 import {from, of} from 'rxjs';
 import {epicShowMessage, showMessage} from './slices/globalMessages';
-import {epicDemoRxLoadData} from './slices/demoRx';
 
 const rootEpic: AppEpic = (action$, ...rest) =>
   combineEpics(
     freeEpics,
     epicSearchRepository,
     epicUserInfo,
-    epicShowMessage,
-    epicDemoRxLoadData
+    epicShowMessage
   )(action$, ...rest).pipe(
     catchError((err, source) => {
       console.error(err);

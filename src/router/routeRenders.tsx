@@ -2,7 +2,6 @@ import React, {FC, Suspense} from 'react';
 import {createRouteRender, Empty} from 'router/core';
 import MainLayout from 'components/templates/MainLayout';
 
-const DemoPage = React.lazy(() => import('components/pages/DemoPage'));
 const HomePage = React.lazy(() => import('components/pages/HomePage'));
 const IconPage = React.lazy(() => import('components/pages/IconsPage'));
 const SearchPage = React.lazy(() => import('components/pages/SearchPage'));
@@ -39,51 +38,5 @@ export const iconsRender = createRouteRender(() => (
 export const specificIconRender = createRouteRender<'iconType'>(({iconType}) => (
   <Suspense fallback={<PageContentLoader />}>
     <IconPage selectedIcon={iconType} />
-  </Suspense>
-));
-
-export const demoRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage />
-  </Suspense>
-));
-export const demoThemeRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage subject="theme" />
-  </Suspense>
-));
-export const demoMediaRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage subject="media" />
-  </Suspense>
-));
-export const demoFormRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage subject="form" />
-  </Suspense>
-));
-export const demoThunkVsRxRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage subject="thunk-vs-rx" />
-  </Suspense>
-));
-export const demoPureComponentRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage subject="pure-component" />
-  </Suspense>
-));
-export const demoSvgRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage subject="svg" />
-  </Suspense>
-));
-export const demoRxJsRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage subject="rxjs" />
-  </Suspense>
-));
-export const demoEmptyRender = createRouteRender(() => (
-  <Suspense fallback={<PageContentLoader />}>
-    <DemoPage subject="empty" />
   </Suspense>
 ));

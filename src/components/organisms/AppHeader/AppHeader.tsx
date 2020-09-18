@@ -58,9 +58,6 @@ const AppHeader: React.FC<IAppHeaderProps> = ({className}) => {
       <Link className="AppHeader__link" to={stringifyRoute(routes.icons, null, null)}>
         {locale.icons}
       </Link>
-      <Link className="AppHeader__link" to={stringifyRoute(routes.demo, null, null)}>
-        {locale.demo}
-      </Link>
       <div className="AppHeader__right-panel">
         <div className="AppHeader__login">{userInfo?.login}</div>
         <LangToggler className="AppHeader__lang-toggler" />

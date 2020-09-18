@@ -7,7 +7,6 @@ import {switchMap} from 'rxjs/operators';
 import rootEpic from './rootEpic';
 import rootReducer from './rootReducer';
 import {genAjax} from 'utils/ajax';
-import rootSaga from './rootSaga';
 import createSagaMiddleware, {SagaIterator} from 'redux-saga';
 import {Ajax, IAjaxRequest} from 'utils/ajax/ajax';
 
@@ -54,7 +53,6 @@ const hotReloadingEpic = (...args: any[]): any =>
   epic$.pipe(switchMap((epic: any) => epic(...args)));
 
 epicMiddleware.run(hotReloadingEpic);
-sagaMiddleware.run(rootSaga);
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./rootReducer', () => {
@@ -65,9 +63,6 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     // ! `window.location.reload()` is better option
     const nextRootEpic = require('./rootEpic').default;
     epic$.next(nextRootEpic);
-  });
-  module.hot.accept('./rootSaga', () => {
-    window.location.reload();
   });
 }
 
