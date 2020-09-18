@@ -7,7 +7,6 @@ import {switchMap} from 'rxjs/operators';
 import rootEpic from './rootEpic';
 import rootReducer from './rootReducer';
 import {genAjax} from 'utils/ajax';
-import createSagaMiddleware, {SagaIterator} from 'redux-saga';
 import {Ajax, IAjaxRequest} from 'utils/ajax/ajax';
 
 export interface IMiddlewareDeps {
@@ -26,7 +25,6 @@ const sagaContext: IMiddlewareDeps = {
 };
 
 const epicMiddleware = createEpicMiddleware({dependencies: rxDependencies});
-const sagaMiddleware = createSagaMiddleware({context: sagaContext});
 
 const store = configureStore({
   reducer: rootReducer,
@@ -37,7 +35,6 @@ const store = configureStore({
       },
     }),
     epicMiddleware,
-    sagaMiddleware,
   ],
 });
 
@@ -73,6 +70,5 @@ export type AppThunk = ThunkAction<void, RootState, typeof thunkExtraArgument, A
 export type AppEpicDeps = typeof rxDependencies;
 export type AppSagaContext = typeof sagaContext;
 export type AppEpic = Epic<Action, Action, RootState, AppEpicDeps>;
-export type AppSagaIterator = SagaIterator;
 
 export default store;

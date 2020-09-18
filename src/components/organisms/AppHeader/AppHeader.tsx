@@ -12,6 +12,7 @@ import {useDispatch} from 'react-redux';
 import {useSelector} from 'utils/redux';
 import {logout} from 'store/epics';
 import {getUserInfo} from 'store/slices/auth';
+import ExternalLink from 'components/atoms/ExternalLink';
 
 export interface IAppHeaderProps {
   className?: string;
@@ -55,6 +56,9 @@ const AppHeader: React.FC<IAppHeaderProps> = ({className}) => {
         onChange={(e) => setSearch(e.target.value)}
         onKeyPress={handleInputKeyPress}
       />
+      <ExternalLink className="AppHeader__link" href="https://developer.github.com/v4/explorer/">
+        GraphQL Explorer
+      </ExternalLink>
       <Link className="AppHeader__link" to={stringifyRoute(routes.icons, null, null)}>
         {locale.icons}
       </Link>
