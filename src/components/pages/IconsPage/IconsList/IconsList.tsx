@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './style.scss';
 import SvgIcon, {allSvgIconTypes} from 'components/atoms/SvgIcon/SvgIcon';
 import {Link} from 'react-router-dom';
 import {routes} from 'router';
 import {stringifyRoute} from 'utils/router';
 
-interface IIconsListProps {}
-const IconsList: React.FC<IIconsListProps> = () => {
+export type IconsListProps = {};
+const IconsList: FC<IconsListProps> = () => {
   return (
     <div className="IconsList">
       {allSvgIconTypes.map((x) => (

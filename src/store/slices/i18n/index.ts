@@ -7,11 +7,11 @@ export enum SupportedLang {
   en = 'en',
   ru = 'ru',
 }
-interface II18nState {
+type I18nState = {
   lang: SupportedLang;
-}
+};
 
-const defaultState: II18nState = {
+const defaultState: I18nState = {
   lang: SupportedLang.en,
 };
 const slice = createSlice({

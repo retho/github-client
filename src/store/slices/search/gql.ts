@@ -1,28 +1,28 @@
 import gql from 'graphql-tag';
 import {gqlQuery} from 'utils/ajax';
 import {
-  IGqlLanguage,
-  IGqlRepository,
-  IGqlRepositoryOwner,
-  IGqlLicense,
-  IGqlRepositoryTopic,
-  IGqlTopic,
+  GqlLanguage,
+  GqlRepository,
+  GqlRepositoryOwner,
+  GqlLicense,
+  GqlRepositoryTopic,
+  GqlTopic,
 } from 'graphqlapi/types';
 
-export interface IQuerySearchParams {
+export type QuerySearchParams = {
   q: string;
   first: number;
-}
+};
 export type RepositorySearchResultItem = Pick<
-  IGqlRepository,
+  GqlRepository,
   'id' | 'name' | 'description' | 'updatedAt' | 'nameWithOwner' | 'url'
 > & {
-  primaryLanguage?: IGqlLanguage;
-  owner: Pick<IGqlRepositoryOwner, 'login'>;
-  licenseInfo?: Pick<IGqlLicense, 'name'>;
+  primaryLanguage?: GqlLanguage;
+  owner: Pick<GqlRepositoryOwner, 'login'>;
+  licenseInfo?: Pick<GqlLicense, 'name'>;
   repositoryTopics: {
-    nodes: (Pick<IGqlRepositoryTopic, 'url'> & {
-      topic: Pick<IGqlTopic, 'name'>;
+    nodes: (Pick<GqlRepositoryTopic, 'url'> & {
+      topic: Pick<GqlTopic, 'name'>;
     })[];
   };
   stargazers: {
@@ -35,7 +35,7 @@ export type RepositorySearchResult = {
     nodes: RepositorySearchResultItem[];
   };
 };
-export const queryRepositorySearch = (params: IQuerySearchParams) =>
+export const queryRepositorySearch = (params: QuerySearchParams) =>
   gqlQuery<RepositorySearchResult>(
     gql`
       query($first: Int!, $q: String!) {

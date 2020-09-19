@@ -1,4 +1,4 @@
-import {IRoute, Empty} from 'router/core';
+import {Route, Empty} from 'router/core';
 import UrlPattern from 'url-pattern';
 import {stringify as qsStringifyQuery, parse as qsParse} from 'query-string';
 import {mapValues} from 'lodash';
@@ -6,7 +6,7 @@ import {matchPath} from 'react-router-dom';
 
 export const stringifyQuery = qsStringifyQuery;
 export const stringifyRoute = <P extends string | Empty, Q extends string | Empty>(
-  route: IRoute<P, Q>,
+  route: Route<P, Q>,
   params: P extends string ? Record<P, string> : null,
   query: Q extends string ? Partial<Record<Q, string>> : null
 ) => {
@@ -18,7 +18,7 @@ export const stringifyRoute = <P extends string | Empty, Q extends string | Empt
 };
 
 export const matchRoute = <P extends string | Empty, Q extends string | Empty>(
-  route: IRoute<P, Q>,
+  route: Route<P, Q>,
   pathname: string,
   search: string
 ): null | [Record<P, string>, Partial<Record<Q, string>>] => {

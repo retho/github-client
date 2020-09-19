@@ -1,15 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './style.scss';
 import AppHeader from 'components/organisms/AppHeader';
 
-export interface IMainLayoutProps {
-  children?: JSX.Element;
-}
-const MainLayout: React.FC<IMainLayoutProps> = ({children}) => {
+export type MainLayoutProps = {};
+const MainLayout: FC<MainLayoutProps> = (props) => {
   return (
     <div className="MainLayout">
       <AppHeader className="MainLayout__header" />
-      <div className="MainLayout__body">{children}</div>
+      <div className="MainLayout__body">{props.children}</div>
     </div>
   );
 };

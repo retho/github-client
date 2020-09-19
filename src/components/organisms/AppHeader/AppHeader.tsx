@@ -14,10 +14,10 @@ import {logout} from 'store/epics';
 import {getUserInfo} from 'store/slices/auth';
 import ExternalLink from 'components/atoms/ExternalLink';
 
-export interface IAppHeaderProps {
+export type AppHeaderProps = {
   className?: string;
-}
-const AppHeader: React.FC<IAppHeaderProps> = ({className}) => {
+};
+const AppHeader: React.FC<AppHeaderProps> = (props) => {
   const locale = useLocale(i18n);
 
   const history = useHistory();
@@ -42,7 +42,7 @@ const AppHeader: React.FC<IAppHeaderProps> = ({className}) => {
   }, []);
 
   return (
-    <header className={cn('AppHeader', className)}>
+    <header className={cn('AppHeader', props.className)}>
       <Link
         className={cn('AppHeader__link', 'AppHeader__link--icon')}
         to={stringifyRoute(routes.root, null, null)}

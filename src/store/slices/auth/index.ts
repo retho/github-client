@@ -12,16 +12,16 @@ enum OAuthScope {
   user = 'user',
 }
 
-interface IUserInfo {
+type UserInfo = {
   login: string;
-}
-interface IAuthState {
+};
+type AuthState = {
   fetching: number;
   token: null | string;
-  userInfo: null | IUserInfo;
+  userInfo: null | UserInfo;
   oauthScopes: null | OAuthScope[];
-}
-const defaultState: IAuthState = {
+};
+const defaultState: AuthState = {
   fetching: 0,
   token: null,
   userInfo: null,
@@ -38,7 +38,7 @@ const slice = createSlice({
       ...state,
       token: payload,
     }),
-    setUserInfo: (state, {payload}: PayloadAction<IUserInfo>) => ({
+    setUserInfo: (state, {payload}: PayloadAction<UserInfo>) => ({
       ...state,
       userInfo: payload,
     }),

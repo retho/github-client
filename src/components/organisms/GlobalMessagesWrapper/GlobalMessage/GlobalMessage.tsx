@@ -5,29 +5,31 @@ import SvgIcon from 'components/atoms/SvgIcon';
 import {useDispatch} from 'react-redux';
 import {hideMessage} from 'store/slices/globalMessages';
 
-export interface IGlobalMessage {
+export type GlobalMessage = {
   id: number;
   type: 'success' | 'info' | 'warning' | 'error';
   title: string;
   description: string;
-}
-export interface IGlobalMessageProps {
+};
+export type GlobalMessageProps = {
   className?: string;
-  message: IGlobalMessage;
-}
-const GlobalMessage: React.FC<IGlobalMessageProps> = ({className, message}) => {
+  message: GlobalMessage;
+};
+const GlobalMessage: React.FC<GlobalMessageProps> = (props) => {
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(hideMessage(message.id));
+    dispatch(hideMessage(props.message.id));
   };
 
   return (
-    <div className={cn('GlobalMessage', `GlobalMessage--type_${message.type}`, className)}>
+    <div
+      className={cn('GlobalMessage', `GlobalMessage--type_${props.message.type}`, props.className)}
+    >
       <SvgIcon className="GlobalMessage__x" type="octicon-x" onClick={handleClose} />
-      <h4>{message.title}</h4>
+      <h4>{props.message.title}</h4>
       <p>
-        {message.description.split('\n').map((x, i) => (
+        {props.message.description.split('\n').map((x, i) => (
           <span key={i}>
             {i > 0 && <br />}
             {x}

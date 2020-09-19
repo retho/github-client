@@ -2,18 +2,18 @@ import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {AppEpic} from 'store';
 import {filter, map, concatAll} from 'rxjs/operators';
 import {from, of, empty} from 'rxjs';
-import {queryRepositorySearch, IQuerySearchParams, RepositorySearchResultItem} from './gql';
+import {queryRepositorySearch, QuerySearchParams, RepositorySearchResultItem} from './gql';
 import {getSliceName} from 'utils/redux';
 
 const sliceName = getSliceName('search');
 
-interface ISearchState {
+type SearchState = {
   fetching: number;
   resultsCount: number;
   list: RepositorySearchResultItem[];
-}
+};
 
-const defaultState: ISearchState = {
+const defaultState: SearchState = {
   fetching: 0,
   resultsCount: 0,
   list: [],
@@ -51,8 +51,8 @@ const {fetchingUp, fetchingDown, setResults} = slice.actions;
 export const {reset} = slice.actions;
 export default slice.reducer;
 
-export interface ISearchActionPayload extends IQuerySearchParams {}
-export const searchRepository = createAction<ISearchActionPayload>(`${sliceName}/searchRepository`);
+export type SearchActionPayload = QuerySearchParams & {};
+export const searchRepository = createAction<SearchActionPayload>(`${sliceName}/searchRepository`);
 export const epicSearchRepository: AppEpic = (action$, state$, {ajax}) =>
   action$.pipe(
     filter(searchRepository.match),

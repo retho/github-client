@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './style.scss';
 import GlobalMessage from './GlobalMessage';
 import {useSelector} from 'utils/redux';
 
-export interface IGlobalMessagesWrapperProps {}
-const GlobalMessagesWrapper: React.FC<IGlobalMessagesWrapperProps> = () => {
+export type GlobalMessagesWrapperProps = {};
+const GlobalMessagesWrapper: FC<GlobalMessagesWrapperProps> = () => {
   const mgs = useSelector((state) => state.globalMessages.messages);
 
   return (

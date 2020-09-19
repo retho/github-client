@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cn from 'classnames';
 import './style.scss';
 
@@ -34,11 +34,11 @@ export const allSvgIconTypes = Object.keys(icons) as SvgIconType[];
 export const isSvgIconType = (type: string): type is SvgIconType =>
   Object.keys(icons).includes(type);
 
-export interface IIconProps extends React.SVGProps<SVGSVGElement> {
+export type IconProps = React.SVGProps<SVGSVGElement> & {
   className?: string;
   type: SvgIconType;
-}
-const SvgIcon = ({type, className, ...restProps}: IIconProps) => {
+};
+const SvgIcon: FC<IconProps> = ({type, className, ...restProps}) => {
   const CustomIcon = icons[type];
   return <CustomIcon className={cn('SvgIcon', className)} {...restProps} />;
 };

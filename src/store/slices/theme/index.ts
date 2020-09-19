@@ -7,11 +7,11 @@ export enum Theme {
   light = 'light',
   dark = 'dark',
 }
-interface II18nState {
+type ThemeState = {
   theme: Theme;
-}
+};
 
-const defaultState: II18nState = {
+const defaultState: ThemeState = {
   theme: Theme.light,
 };
 const slice = createSlice({

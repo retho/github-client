@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import ReactDom from 'react-dom';
 import cn from 'classnames';
 import './style.scss';
@@ -13,17 +13,19 @@ const getForegroundNode = () => {
   return foregroundNode;
 };
 
-export interface IModalProps {
-  children?: JSX.Element;
+export type ModalProps = {
   open: boolean;
   onClose?: () => void;
-}
-const Modal: React.FC<IModalProps> = ({children, open, onClose}) => {
+};
+const Modal: FC<ModalProps> = (props) => {
   return ReactDom.createPortal(
-    <div className={cn('Modal-wrapper', !open && 'Modal-wrapper--closed')} onClick={onClose}>
+    <div
+      className={cn('Modal-wrapper', !props.open && 'Modal-wrapper--closed')}
+      onClick={props.onClose}
+    >
       <div className="Modal" onClick={stopPropagation}>
-        <SvgIcon className="Modal__x" type="octicon-x" onClick={onClose} />
-        {children}
+        <SvgIcon className="Modal__x" type="octicon-x" onClick={props.onClose} />
+        {props.children}
       </div>
     </div>,
     getForegroundNode()

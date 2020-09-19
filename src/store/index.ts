@@ -7,21 +7,18 @@ import {switchMap} from 'rxjs/operators';
 import rootEpic from './rootEpic';
 import rootReducer from './rootReducer';
 import {genAjax} from 'utils/ajax';
-import {Ajax, IAjaxRequest} from 'utils/ajax/ajax';
+import {Ajax, AjaxRequest} from 'utils/ajax/ajax';
 
-export interface IMiddlewareDeps {
+export type MiddlewareDeps = {
   ajax: Ajax;
-}
+};
 
-const thunkExtraArgument: IMiddlewareDeps = {
-  ajax: null as any,
+const thunkExtraArgument: MiddlewareDeps = {
+  ajax: (null as any) as Ajax,
 };
 const rxDependencies = {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   ajax: (null as any) as typeof rxAjax,
-};
-const sagaContext: IMiddlewareDeps = {
-  ajax: null as any,
 };
 
 const epicMiddleware = createEpicMiddleware({dependencies: rxDependencies});
@@ -39,11 +36,10 @@ const store = configureStore({
 });
 
 const bindedAjax = genAjax(store);
-const rxAjax = <D>(params: IAjaxRequest<D>) => from(bindedAjax(params));
+const rxAjax = <D>(params: AjaxRequest<D>) => from(bindedAjax(params));
 
 thunkExtraArgument.ajax = genAjax(store);
 rxDependencies.ajax = rxAjax;
-sagaContext.ajax = genAjax(store);
 
 const epic$ = new BehaviorSubject(rootEpic);
 const hotReloadingEpic = (...args: any[]): any =>
@@ -68,7 +64,6 @@ export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk = ThunkAction<void, RootState, typeof thunkExtraArgument, Action<string>>;
 export type AppEpicDeps = typeof rxDependencies;
-export type AppSagaContext = typeof sagaContext;
 export type AppEpic = Epic<Action, Action, RootState, AppEpicDeps>;
 
 export default store;

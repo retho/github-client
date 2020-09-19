@@ -10,7 +10,7 @@ export type URI = Brand<typeof URIBrand, string>;
 export type DateTime = Brand<typeof DateTimeBrand, string>;
 export type Int = Brand<typeof IntBrand, number>;
 
-export interface IGqlUser {
+export type GqlUser = {
   id: ID;
   bio?: string;
   createdAt: DateTime;
@@ -23,35 +23,35 @@ export interface IGqlUser {
   updatedAt: DateTime;
   url: URI;
   websiteUrl?: URI;
-}
+};
 
-export interface IGqlLanguage {
+export type GqlLanguage = {
   id: ID;
   name: string;
   color?: string;
-}
+};
 
-export interface IGqlTopic {
+export type GqlTopic = {
   id: ID;
   name: string;
   viewerHasStarred: boolean;
-}
+};
 
-export interface IGqlRepositoryTopic {
+export type GqlRepositoryTopic = {
   id: ID;
   resourcePath: URI;
   url: URI;
-}
+};
 
-export interface IGqlRepositoryOwner {
+export type GqlRepositoryOwner = {
   id: ID;
   avatarUrl: URI;
   login: string;
   resourcePath: URI;
   url: URI;
-}
+};
 
-export interface IGqlLicense {
+export type GqlLicense = {
   id: ID;
   body: string;
   description?: string;
@@ -61,9 +61,9 @@ export interface IGqlLicense {
   pseudoLicense: boolean;
   spdxId?: string;
   url?: URI;
-}
+};
 
-export interface IGqlRepository {
+export type GqlRepository = {
   id: ID;
   createdAt: DateTime;
   description?: string;
@@ -74,4 +74,4 @@ export interface IGqlRepository {
   updatedAt: DateTime;
   url: URI;
   viewerHasStarred: boolean;
-}
+};

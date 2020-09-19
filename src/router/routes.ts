@@ -7,14 +7,20 @@ import {
   specificIconRender,
 } from './routeRenders';
 
+const root = createRoute('/', rootRender);
+
+const search = createRoute('/search', searchRender);
+const searchAdvanced = createRoute('/search/advanced', searchAdvancedRender);
+
+const icons = createRoute('/icons', iconsRender);
+const specificIcon = createRoute('/icons/:iconType', specificIconRender);
+
 const routes = {
-  root: createRoute('/', rootRender),
-
-  search: createRoute('/search', searchRender),
-  searchAdvanced: createRoute('/search/advanced', searchAdvancedRender),
-
-  icons: createRoute('/icons', iconsRender),
-  specificIcon: createRoute('/icons/:iconType', specificIconRender),
+  root,
+  search,
+  searchAdvanced,
+  icons,
+  specificIcon,
 };
 
 export default routes;

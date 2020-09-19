@@ -2,17 +2,17 @@ import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {AppEpic} from 'store';
 import {filter, map, concatAll, mapTo, mergeAll, ignoreElements} from 'rxjs/operators';
 import {from, of, race, timer, interval} from 'rxjs';
-import {IGlobalMessage} from 'components/organisms/GlobalMessagesWrapper/GlobalMessage/GlobalMessage';
+import {GlobalMessage} from 'components/organisms/GlobalMessagesWrapper/GlobalMessage/GlobalMessage';
 import {getSliceName} from 'utils/redux';
 
 const sliceName = getSliceName('globalMessages');
 
-interface IGlobalMessagesState {
+type GlobalMessagesState = {
   nextId: number;
-  messages: IGlobalMessage[];
-}
+  messages: GlobalMessage[];
+};
 
-const defaultState: IGlobalMessagesState = {
+const defaultState: GlobalMessagesState = {
   nextId: 1,
   messages: [],
 };
@@ -21,7 +21,7 @@ const slice = createSlice({
   initialState: defaultState,
   reducers: {
     reset: () => defaultState,
-    addMessage: (state, {payload}: PayloadAction<IGlobalMessage>) => ({
+    addMessage: (state, {payload}: PayloadAction<GlobalMessage>) => ({
       ...state,
       nextId: payload.id + 1,
       messages: state.messages.concat([payload]),
@@ -36,11 +36,11 @@ const slice = createSlice({
 const {addMessage, removeMessage} = slice.actions;
 export default slice.reducer;
 
-export interface IShowMessagePayload {
-  message: Omit<IGlobalMessage, 'id'>;
+export type ShowMessagePayload = {
+  message: Omit<GlobalMessage, 'id'>;
   hideIn: null | number;
-}
-export const showMessage = createAction<IShowMessagePayload>(`${sliceName}/showMessage`);
+};
+export const showMessage = createAction<ShowMessagePayload>(`${sliceName}/showMessage`);
 export const hideMessage = createAction<number>(`${sliceName}/hideMessage`);
 export const epicShowMessage: AppEpic = (action$, state$) =>
   action$.pipe(

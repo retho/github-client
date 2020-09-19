@@ -10,10 +10,10 @@ import {Empty} from './core';
 
 const notFoundRoute = <div>404 Route not found</div>;
 
-interface IRouteContext {
+type RouteContext = {
   isAuthorized: boolean;
-}
-const getCurrentRoute = (context: IRouteContext, path: string, search: string) => {
+};
+const getCurrentRoute = (context: RouteContext, path: string, search: string) => {
   if (!context.isAuthorized) {
     return <AuthPage />;
   }

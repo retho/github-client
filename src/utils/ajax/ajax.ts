@@ -2,35 +2,35 @@ import {AppStore} from 'store';
 import {showMessage} from 'store/slices/globalMessages';
 import {logout} from 'store/epics';
 
-export interface IGithubApiErrorBody {
+export type GithubApiErrorBody = {
   message: string;
   documentation_url: string;
-}
+};
 
-interface IAjaxSuccessfulResponse<D> {
+type AjaxSuccessfulResponse<D> = {
   kind: 'success';
   status: number;
   headers: Headers;
   data: D;
-}
-interface IAjaxApiError {
+};
+type AjaxApiError = {
   kind: 'api-error';
   status: number;
   headers: Headers;
-  data: IGithubApiErrorBody;
-}
-interface IAjaxUnknownError {
+  data: GithubApiErrorBody;
+};
+type AjaxUnknownError = {
   kind: 'unknown-error';
   error: any;
-}
-export type AjaxReply<D> = IAjaxSuccessfulResponse<D> | IAjaxApiError | IAjaxUnknownError;
+};
+export type AjaxReply<D> = AjaxSuccessfulResponse<D> | AjaxApiError | AjaxUnknownError;
 
-export interface IAjaxRequest<D> {
+export type AjaxRequest<D> = {
   res2data: (res: Response) => Promise<D>;
   path: string;
   config?: RequestInit;
-}
-export type Ajax = <D>(params: IAjaxRequest<D>) => Promise<AjaxReply<D>>;
+};
+export type Ajax = <D>(params: AjaxRequest<D>) => Promise<AjaxReply<D>>;
 export const genAjax = (store: AppStore): Ajax => async ({res2data, path, config}) => {
   const oauthToken = store.getState().auth.token;
 
@@ -57,7 +57,7 @@ export const genAjax = (store: AppStore): Ajax => async ({res2data, path, config
         store.dispatch(logout());
       }
 
-      const data: IGithubApiErrorBody = await res.json();
+      const data: GithubApiErrorBody = await res.json();
 
       return {
         kind: 'api-error' as const,

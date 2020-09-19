@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cn from 'classnames';
 import ReactSwitch, {ReactSwitchProps} from 'react-switch';
 
-export interface ILangTogglerProps {
+export type LangTogglerProps = {
   className?: string;
   checked: boolean;
   onChange: ReactSwitchProps['onChange'];
@@ -10,8 +10,8 @@ export interface ILangTogglerProps {
   uncheckedIcon?: ReactSwitchProps['uncheckedIcon'];
   onColor?: ReactSwitchProps['onColor'];
   offColor?: ReactSwitchProps['offColor'];
-}
-const Switch = (props: ILangTogglerProps) => {
+};
+const Switch: FC<LangTogglerProps> = (props) => {
   return (
     <ReactSwitch
       className={cn('Switch', props.className)}

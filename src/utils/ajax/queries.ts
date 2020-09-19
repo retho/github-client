@@ -1,16 +1,16 @@
 import {DocumentNode} from 'graphql';
-import {IAjaxRequest} from './ajax';
+import {AjaxRequest} from './ajax';
 
 const apiRoot = 'https://api.github.com';
 
-interface IGraphqlResponseBody<R = any> {
+type GraphqlResponseBody<R = any> = {
   data: R;
   errors?: any[];
-}
+};
 const gqlQuery = <R = any>(
   query: DocumentNode,
   variables?: object
-): IAjaxRequest<IGraphqlResponseBody<R>> => {
+): AjaxRequest<GraphqlResponseBody<R>> => {
   return {
     path: `${apiRoot}/graphql`,
     config: {
@@ -21,10 +21,10 @@ const gqlQuery = <R = any>(
   };
 };
 
-interface IRawQueryParams extends RequestInit {
+type RawQueryParams = RequestInit & {
   path: string;
-}
-const rawQuery = ({path, ...rest}: IRawQueryParams): IAjaxRequest<Response> => {
+};
+const rawQuery = ({path, ...rest}: RawQueryParams): AjaxRequest<Response> => {
   return {
     path: `${apiRoot}${path}`,
     config: rest,
@@ -32,8 +32,8 @@ const rawQuery = ({path, ...rest}: IRawQueryParams): IAjaxRequest<Response> => {
   };
 };
 
-interface IJsonQueryParams extends IRawQueryParams {}
-const jsonQuery = <R = any>(params: IJsonQueryParams): IAjaxRequest<R> => {
+type JsonQueryParams = RawQueryParams & {};
+const jsonQuery = <R = any>(params: JsonQueryParams): AjaxRequest<R> => {
   const ajxr = rawQuery(params);
   return {
     ...ajxr,

@@ -14,24 +14,23 @@ import SvgIcon from 'components/atoms/SvgIcon';
 import MainLayout from 'components/templates/MainLayout';
 import {Link} from 'react-router-dom';
 
-interface ISearchFilters {
+type SearchFilters = {
   q?: string;
   owners?: string;
   language?: string;
-}
+};
+type FormikValues = SearchFilters & {};
 
-interface IFormikValues extends ISearchFilters {}
-
-const filters2query = ({q, owners, language}: ISearchFilters) =>
+const filters2query = ({q, owners, language}: SearchFilters) =>
   compact([q, owners && `owners:${owners}`, language && `language:${language}`])
     .join('+')
     .toLowerCase();
 
-export interface ISearchPageProps {
-  filters: ISearchFilters;
+export type SearchPageProps = {
+  filters: SearchFilters;
   advanced?: boolean;
-}
-const SearchPage: React.FC<ISearchPageProps> = ({filters, advanced}) => {
+};
+const SearchPage: React.FC<SearchPageProps> = ({filters, advanced}) => {
   const locale = useLocale(i18n);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -46,7 +45,7 @@ const SearchPage: React.FC<ISearchPageProps> = ({filters, advanced}) => {
     }
   }, [filters]);
 
-  const formik = useFormik<IFormikValues>({
+  const formik = useFormik<FormikValues>({
     initialValues: filters,
     onSubmit: (values) => {
       history.push(
