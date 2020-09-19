@@ -1,19 +1,24 @@
 import {combineEpics} from 'redux-observable';
-import {epicSearchRepository} from './slices/search';
 import {AppEpic} from 'store';
 import {catchError} from 'rxjs/operators';
-import freeEpics from './epics';
-import {epicUserInfo} from './slices/auth';
 import {from} from 'rxjs';
-import {epicShowMessage, showMessage} from './slices/globalMessages';
+import {showMessage} from './slices/globalMessages';
 import {setAppCrashed} from './slices/app';
+import {epic as epicApp} from './slices/app';
+import {epic as epicAuth} from './slices/auth';
+import {epic as epicGlobalMessages} from './slices/globalMessages';
+import {epic as epicI18n} from './slices/i18n';
+import {epic as epicSearch} from './slices/search';
+import {epic as epicTheme} from './slices/theme';
 
 const rootEpic: AppEpic = (action$, ...rest) =>
   combineEpics(
-    freeEpics,
-    epicSearchRepository,
-    epicUserInfo,
-    epicShowMessage
+    epicApp,
+    epicAuth,
+    epicGlobalMessages,
+    epicI18n,
+    epicSearch,
+    epicTheme
   )(action$, ...rest).pipe(
     catchError((err) => {
       console.error(err);

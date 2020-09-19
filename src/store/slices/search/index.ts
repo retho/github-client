@@ -4,16 +4,18 @@ import {filter, map, concatAll} from 'rxjs/operators';
 import {from, of, empty} from 'rxjs';
 import {queryRepositorySearch, QuerySearchParams, RepositorySearchResultItem} from './gql';
 import {getSliceName} from 'utils/redux';
+import {logout} from '../auth';
+import {combineEpics} from 'redux-observable';
 
 const sliceName = getSliceName('search');
 
-type SearchState = {
+type State = {
   fetching: number;
   resultsCount: number;
   list: RepositorySearchResultItem[];
 };
 
-const defaultState: SearchState = {
+const defaultState: State = {
   fetching: 0,
   resultsCount: 0,
   list: [],
@@ -45,6 +47,9 @@ const slice = createSlice({
       list: payload.list,
     }),
   },
+  extraReducers: {
+    [logout.type]: () => defaultState,
+  },
 });
 
 const {fetchingUp, fetchingDown, setResults} = slice.actions;
@@ -53,7 +58,7 @@ export default slice.reducer;
 
 export type SearchActionPayload = QuerySearchParams & {};
 export const searchRepository = createAction<SearchActionPayload>(`${sliceName}/searchRepository`);
-export const epicSearchRepository: AppEpic = (action$, state$, {ajax}) =>
+const epicSearchRepository: AppEpic = (action$, state$, {ajax}) =>
   action$.pipe(
     filter(searchRepository.match),
     map((action) =>
@@ -79,3 +84,5 @@ export const epicSearchRepository: AppEpic = (action$, state$, {ajax}) =>
     ),
     concatAll()
   );
+
+export const epic: AppEpic = (...args) => combineEpics(epicSearchRepository)(...args);

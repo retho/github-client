@@ -10,8 +10,7 @@ import {stringifyRoute} from 'utils/router';
 import {routes} from 'router';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'utils/redux';
-import {logout} from 'store/epics';
-import {getUserInfo} from 'store/slices/auth';
+import {getUserInfo, logout} from 'store/slices/auth';
 import ExternalLink from 'components/atoms/ExternalLink';
 
 export type AppHeaderProps = {

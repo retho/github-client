@@ -1,6 +1,6 @@
 import {AppStore} from 'store';
+import {logout} from 'store/slices/auth';
 import {showMessage} from 'store/slices/globalMessages';
-import {logout} from 'store/epics';
 
 export type GithubApiErrorBody = {
   message: string;

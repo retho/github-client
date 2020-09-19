@@ -4,15 +4,17 @@ import {filter, map, concatAll, mapTo, mergeAll, ignoreElements} from 'rxjs/oper
 import {from, of, race, timer, interval} from 'rxjs';
 import {GlobalMessage} from 'components/organisms/GlobalMessagesWrapper/GlobalMessage';
 import {getSliceName} from 'utils/redux';
+import {logout} from '../auth';
+import {combineEpics} from 'redux-observable';
 
 const sliceName = getSliceName('globalMessages');
 
-type GlobalMessagesState = {
+type State = {
   nextId: number;
   messages: GlobalMessage[];
 };
 
-const defaultState: GlobalMessagesState = {
+const defaultState: State = {
   nextId: 1,
   messages: [],
 };
@@ -31,6 +33,9 @@ const slice = createSlice({
       messages: state.messages.filter((x) => x.id !== payload),
     }),
   },
+  extraReducers: {
+    [logout.type]: () => defaultState,
+  },
 });
 
 const {addMessage, removeMessage} = slice.actions;
@@ -42,7 +47,7 @@ export type ShowMessagePayload = {
 };
 export const showMessage = createAction<ShowMessagePayload>(`${sliceName}/showMessage`);
 export const hideMessage = createAction<number>(`${sliceName}/hideMessage`);
-export const epicShowMessage: AppEpic = (action$, state$) =>
+const epicShowMessage: AppEpic = (action$, state$) =>
   action$.pipe(
     filter(showMessage.match),
     map((action) => ({
@@ -64,3 +69,5 @@ export const epicShowMessage: AppEpic = (action$, state$) =>
     concatAll(),
     mergeAll()
   );
+
+export const epic: AppEpic = (...args) => combineEpics(epicShowMessage)(...args);

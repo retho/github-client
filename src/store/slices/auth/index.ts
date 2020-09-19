@@ -1,11 +1,13 @@
 import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {userInfoQuery} from './gql';
 import {AppEpic} from 'store';
-import {filter, map, concatAll} from 'rxjs/operators';
+import {filter, map, concatAll, tap, ignoreElements} from 'rxjs/operators';
 import {from, of} from 'rxjs';
 import {getSliceName} from 'utils/redux';
+import {combineEpics} from 'redux-observable';
 
 const sliceName = getSliceName('auth');
+export const logout = createAction<void>(`${sliceName}/logout`);
 
 enum OAuthScope {
   public_repo = 'public_repo',
@@ -15,18 +17,20 @@ enum OAuthScope {
 type UserInfo = {
   login: string;
 };
-type AuthState = {
+type State = {
   fetching: number;
   token: null | string;
   userInfo: null | UserInfo;
   oauthScopes: null | OAuthScope[];
 };
-const defaultState: AuthState = {
+
+const defaultState: State = {
   fetching: 0,
   token: null,
   userInfo: null,
   oauthScopes: null,
 };
+
 const slice = createSlice({
   name: sliceName,
   initialState: {...defaultState, token: localStorage.getItem('auth_token')},
@@ -47,14 +51,27 @@ const slice = createSlice({
       oauthScopes: payload,
     }),
   },
+  extraReducers: {
+    [logout.type]: () => defaultState,
+  },
 });
 
 const {fetchingUp, fetchingDown, setUserInfo, setOauthScopes} = slice.actions;
 export const {reset, setToken} = slice.actions;
 export default slice.reducer;
 
+const epicLogout: AppEpic = (action$) =>
+  action$.pipe(
+    filter(logout.match),
+    tap(() => {
+      localStorage.clear();
+    }),
+    ignoreElements(),
+    concatAll()
+  );
+
 export const getUserInfo = createAction<void>(`${sliceName}/getUserInfo`);
-export const epicUserInfo: AppEpic = (action$, state$, {ajax}) =>
+const epicUserInfo: AppEpic = (action$, state$, {ajax}) =>
   action$.pipe(
     filter(getUserInfo.match),
     map(() =>
@@ -82,3 +99,5 @@ export const epicUserInfo: AppEpic = (action$, state$, {ajax}) =>
     ),
     concatAll()
   );
+
+export const epic: AppEpic = (...args) => combineEpics(epicLogout, epicUserInfo)(...args);
