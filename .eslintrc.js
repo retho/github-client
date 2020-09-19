@@ -28,6 +28,9 @@ const commonRules = {
 }
 
 const projectSpecificRules = {
+  'jsx-a11y/no-onchange': 'off',
+  'jsx-a11y/click-events-have-key-events': 'off',
+  'jsx-a11y/no-static-element-interactions': 'off',
 }
 
 module.exports = {
@@ -40,7 +43,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    // 'plugin:jsx-a11y/recommended',
+    'plugin:jsx-a11y/recommended',
   ],
   globals: {
     Atomics: 'readonly',

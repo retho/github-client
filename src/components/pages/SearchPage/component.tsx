@@ -90,18 +90,20 @@ const SearchPage: React.FC<SearchPageProps> = ({filters, advanced}) => {
           {advanced && (
             <div>
               <div className="SearchPage-advanced-item SearchPage-form__advanced-item">
-                <label>From these owners</label>
+                <label htmlFor="owners">From these owners</label>
                 <input
-                  placeholder="github, atom, electron, octokit"
+                  id="owners"
                   name="owners"
+                  placeholder="github, atom, electron, octokit"
                   type="text"
                   onChange={formik.handleChange}
                   value={formik.values.owners}
                 />
               </div>
               <div className="SearchPage-advanced-item SearchPage-form__advanced-item">
-                <label>Written in this language</label>
+                <label htmlFor="language">Written in this language</label>
                 <select
+                  id="language"
                   name="language"
                   onChange={formik.handleChange}
                   value={formik.values.language}
