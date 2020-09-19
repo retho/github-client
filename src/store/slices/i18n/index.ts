@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {LocaleLang} from 'constants/locale';
 import {empty} from 'rxjs';
 import {AppEpic} from 'store';
 import {getSliceName} from 'utils/redux';
@@ -6,22 +7,18 @@ import {logout} from '../auth';
 
 const sliceName = getSliceName('counter');
 
-export enum SupportedLang {
-  en = 'en',
-  ru = 'ru',
-}
 type State = {
-  lang: SupportedLang;
+  lang: LocaleLang;
 };
 
 const defaultState: State = {
-  lang: SupportedLang.en,
+  lang: LocaleLang.en,
 };
 const slice = createSlice({
   name: sliceName,
   initialState: defaultState,
   reducers: {
-    switchLang: (state, {payload}: PayloadAction<SupportedLang>) => ({
+    switchLang: (state, {payload}: PayloadAction<LocaleLang>) => ({
       ...state,
       lang: payload,
     }),

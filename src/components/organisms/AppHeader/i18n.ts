@@ -1,14 +1,12 @@
+import {LocaleLang} from 'constants/locale';
+
 export default {
-  searchPlaceholder: {
-    en: 'Search',
-    ru: 'Поиск',
+  [LocaleLang.en]: {
+    searchPlaceholder: 'Search',
+    icons: 'Icons',
   },
-  icons: {
-    en: 'Icons',
-    ru: 'Иконки',
-  },
-  demo: {
-    en: 'Demo',
-    ru: 'Демо',
+  [LocaleLang.ru]: {
+    searchPlaceholder: 'Поиск',
+    icons: 'Иконки',
   },
 };

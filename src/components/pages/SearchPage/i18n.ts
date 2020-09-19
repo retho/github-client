@@ -1,6 +1,10 @@
+import {LocaleLang} from 'constants/locale';
+
 export default {
-  resultsFound: {
-    en: (count: number) => `${count} results found`,
-    ru: (count: number) => `${count} совпадений найдено`,
+  [LocaleLang.en]: {
+    resultsFound: (count: number) => `${count} results found`,
+  },
+  [LocaleLang.ru]: {
+    resultsFound: (count: number) => `${count} совпадений найдено`,
   },
 };
