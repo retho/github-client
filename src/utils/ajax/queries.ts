@@ -3,11 +3,11 @@ import {AjaxRequest} from './ajax';
 
 const apiRoot = 'https://api.github.com';
 
-type GraphqlResponseBody<R = any> = {
+type GraphqlResponseBody<R> = {
   data: R;
-  errors?: any[];
+  errors?: unknown[];
 };
-const gqlQuery = <R = any>(
+const gqlQuery = <R>(
   query: DocumentNode,
   variables?: object
 ): AjaxRequest<GraphqlResponseBody<R>> => {
@@ -33,7 +33,7 @@ const rawQuery = ({path, ...rest}: RawQueryParams): AjaxRequest<Response> => {
 };
 
 type JsonQueryParams = RawQueryParams & {};
-const jsonQuery = <R = any>(params: JsonQueryParams): AjaxRequest<R> => {
+const jsonQuery = <R>(params: JsonQueryParams): AjaxRequest<R> => {
   const ajxr = rawQuery(params);
   return {
     ...ajxr,

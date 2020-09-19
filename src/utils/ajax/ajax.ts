@@ -24,7 +24,7 @@ type AjaxApiError = {
 };
 type AjaxUnknownError = {
   kind: 'unknown-error';
-  error: any;
+  error: unknown;
 };
 export type AjaxReply<D> =
   | AjaxSuccessfulResponse<D>

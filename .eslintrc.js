@@ -7,8 +7,7 @@ const commonRules = {
   '@typescript-eslint/interface-name-prefix':
     ['error', {prefixWithI: 'always', allowUnderscorePrefix: false}],
   '@typescript-eslint/no-empty-interface': 'off',
-  '@typescript-eslint/no-explicit-any': 'off',
-  // '@typescript-eslint/no-explicit-any': 'warn',
+  '@typescript-eslint/no-explicit-any': 'warn',
   '@typescript-eslint/consistent-type-definitions': ['error', 'type'], // * https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c
   'prefer-const': 'warn',
   'react/prop-types': 'off',

@@ -14,11 +14,11 @@ export type MiddlewareDeps = {
 };
 
 const thunkExtraArgument: MiddlewareDeps = {
-  ajax: (null as any) as Ajax,
+  ajax: (null as unknown) as Ajax,
 };
 const rxDependencies = {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  ajax: (null as any) as typeof rxAjax,
+  ajax: (null as unknown) as typeof rxAjax,
 };
 
 const epicMiddleware = createEpicMiddleware({dependencies: rxDependencies});
@@ -42,8 +42,9 @@ thunkExtraArgument.ajax = genAjax(store);
 rxDependencies.ajax = rxAjax;
 
 const epic$ = new BehaviorSubject(rootEpic);
-const hotReloadingEpic = (...args: any[]): any =>
-  epic$.pipe(switchMap((epic: any) => epic(...args)));
+const hotReloadingEpic = (
+  ...args: any[] // eslint-disable-line @typescript-eslint/no-explicit-any
+): any => epic$.pipe(switchMap((epic: any) => epic(...args))); // eslint-disable-line @typescript-eslint/no-explicit-any
 
 epicMiddleware.run(hotReloadingEpic);
 

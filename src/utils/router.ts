@@ -11,9 +11,11 @@ export const stringifyRoute = <P extends string | Empty, Q extends string | Empt
   query: Q extends string ? Partial<Record<Q, string>> : null
 ) => {
   const pattern = new UrlPattern(route.pattern);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const q = query as any;
   return encodeURI(
     pattern.stringify(params && mapValues(params, encodeURIComponent)) +
-      (query ? `?${stringifyQuery(query as any)}` : '')
+      (query ? `?${stringifyQuery(q)}` : '')
   );
 };
 
