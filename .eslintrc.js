@@ -18,7 +18,7 @@ const commonRules = {
   'no-debugger': 'warn',
   'no-console': ['warn', {allow: ['error']}],
   'no-labels': 'error',
-  // 'no-shadow': 'error',
+  'no-shadow': 'error',
   'no-constant-condition': 'warn',
   'no-unreachable': 'warn',
   'default-case': 'warn',
