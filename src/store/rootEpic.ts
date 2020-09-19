@@ -1,11 +1,12 @@
 import {combineEpics} from 'redux-observable';
 import {epicSearchRepository} from './slices/search';
 import {AppEpic} from 'store';
-import {catchError, mergeAll} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import freeEpics from './epics';
 import {epicUserInfo} from './slices/auth';
-import {from, of} from 'rxjs';
+import {from} from 'rxjs';
 import {epicShowMessage, showMessage} from './slices/globalMessages';
+import {setAppCrashed} from './slices/app';
 
 const rootEpic: AppEpic = (action$, ...rest) =>
   combineEpics(
@@ -14,22 +15,20 @@ const rootEpic: AppEpic = (action$, ...rest) =>
     epicUserInfo,
     epicShowMessage
   )(action$, ...rest).pipe(
-    catchError((err, source) => {
+    catchError((err) => {
       console.error(err);
 
       return from([
-        of(
-          showMessage({
-            hideIn: null,
-            message: {
-              type: 'error',
-              title: 'Unexpected error occured',
-              description: 'Application may not work properly. Please reload the page.',
-            },
-          })
-        ),
-        source, // ! stateful epics may lose state in the restart
-      ]).pipe(mergeAll());
+        showMessage({
+          hideIn: null,
+          message: {
+            type: 'error',
+            title: 'Unexpected error occured',
+            description: 'Application may not work properly. Please reload the page.',
+          },
+        }),
+        setAppCrashed(),
+      ]);
     })
   );
 

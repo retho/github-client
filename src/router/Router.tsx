@@ -1,4 +1,4 @@
-import React, {useMemo, FC} from 'react';
+import React, {useMemo, FC, useCallback} from 'react';
 import {routes} from './index';
 import {useLocation} from 'react-router-dom';
 import {useSelector} from 'utils/redux';
@@ -7,6 +7,9 @@ import AuthPage from 'components/pages/AuthPage';
 import {useThemeProvider} from './hooks';
 import {matchRoute} from 'utils/router';
 import {Empty} from './core';
+import {useDispatch} from 'react-redux';
+import {setAppCrashed} from 'store/slices/app';
+import ErrorWrapper from './ErrorWrapper';
 
 const notFoundRoute = <div>404 Route not found</div>;
 
@@ -29,6 +32,8 @@ const getCurrentRoute = (context: RouteContext, path: string, search: string) =>
 };
 
 const Router: FC = () => {
+  const dispatch = useDispatch();
+
   useThemeProvider();
 
   const location = useLocation();
@@ -40,11 +45,16 @@ const Router: FC = () => {
     isAuthorized,
   ]);
 
+  const appCrashed = useSelector((state) => state.app.crashed);
+
+  const handleError = useCallback(() => dispatch(setAppCrashed()), []);
+  if (appCrashed) return <div>Неожиданная ошибка. Пожалуйста, обновите страницу</div>;
+
   return (
-    <>
+    <ErrorWrapper onError={handleError}>
       {route || notFoundRoute}
       <GlobalMessagesWrapper />
-    </>
+    </ErrorWrapper>
   );
 };
 

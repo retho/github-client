@@ -13,6 +13,9 @@ type AjaxSuccessfulResponse<D> = {
   headers: Headers;
   data: D;
 };
+type AjaxUnathorized = {
+  kind: 'unauthorized';
+};
 type AjaxApiError = {
   kind: 'api-error';
   status: number;
@@ -23,7 +26,11 @@ type AjaxUnknownError = {
   kind: 'unknown-error';
   error: any;
 };
-export type AjaxReply<D> = AjaxSuccessfulResponse<D> | AjaxApiError | AjaxUnknownError;
+export type AjaxReply<D> =
+  | AjaxSuccessfulResponse<D>
+  | AjaxUnathorized
+  | AjaxApiError
+  | AjaxUnknownError;
 
 export type AjaxRequest<D> = {
   res2data: (res: Response) => Promise<D>;
@@ -55,6 +62,7 @@ export const genAjax = (store: AppStore): Ajax => async ({res2data, path, config
 
       if (res.status === 401) {
         store.dispatch(logout());
+        return {kind: 'unauthorized' as const};
       }
 
       const data: GithubApiErrorBody = await res.json();
