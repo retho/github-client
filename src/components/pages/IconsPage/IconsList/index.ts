@@ -1,1 +1,2 @@
-export {default} from './IconsList';
+export {default} from './component';
+export * from './component';

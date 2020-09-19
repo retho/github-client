@@ -1,1 +1,2 @@
-export {default} from './GlobalMessagesWrapper';
+export {default} from './component';
+export * from './component';

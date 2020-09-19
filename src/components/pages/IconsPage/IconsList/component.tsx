@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import './style.scss';
-import SvgIcon, {allSvgIconTypes} from 'components/atoms/SvgIcon/SvgIcon';
+import SvgIcon, {allSvgIconTypes} from 'components/atoms/SvgIcon';
 import {Link} from 'react-router-dom';
 import {routes} from 'router';
 import {stringifyRoute} from 'utils/router';

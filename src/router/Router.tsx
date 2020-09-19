@@ -1,5 +1,5 @@
 import React, {useMemo, FC} from 'react';
-import routes from './routes';
+import {routes} from './index';
 import {useLocation} from 'react-router-dom';
 import {useSelector} from 'utils/redux';
 import GlobalMessagesWrapper from 'components/organisms/GlobalMessagesWrapper';

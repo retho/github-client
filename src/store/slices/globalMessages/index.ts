@@ -2,7 +2,7 @@ import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {AppEpic} from 'store';
 import {filter, map, concatAll, mapTo, mergeAll, ignoreElements} from 'rxjs/operators';
 import {from, of, race, timer, interval} from 'rxjs';
-import {GlobalMessage} from 'components/organisms/GlobalMessagesWrapper/GlobalMessage/GlobalMessage';
+import {GlobalMessage} from 'components/organisms/GlobalMessagesWrapper/GlobalMessage';
 import {getSliceName} from 'utils/redux';
 
 const sliceName = getSliceName('globalMessages');

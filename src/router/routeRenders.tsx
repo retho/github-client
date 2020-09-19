@@ -2,7 +2,7 @@ import React, {FC, Suspense} from 'react';
 import {createRouteRender, Empty} from 'router/core';
 import {Redirect} from 'react-router-dom';
 import {stringifyRoute} from 'utils/router';
-import routes from './routes';
+import {routes} from './index';
 
 const IconPage = React.lazy(() => import('components/pages/IconsPage'));
 const SearchPage = React.lazy(() => import('components/pages/SearchPage'));

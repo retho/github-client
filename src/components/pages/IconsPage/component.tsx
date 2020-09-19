@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import IconsList from './IconsList';
-import {isSvgIconType} from 'components/atoms/SvgIcon/SvgIcon';
+import {isSvgIconType} from 'components/atoms/SvgIcon';
 import IconView from './IconView';
 
 export type IconPageProps = {

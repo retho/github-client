@@ -1,1 +1,2 @@
-export {default} from './IconView';
+export {default} from './component';
+export * from './component';

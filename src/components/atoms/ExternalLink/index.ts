@@ -1,1 +1,2 @@
-export {default} from './ExternalLink';
+export {default} from './component';
+export * from './component';

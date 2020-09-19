@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import './style.scss';
-import SvgIcon, {SvgIconType} from 'components/atoms/SvgIcon/SvgIcon';
+import SvgIcon, {SvgIconType} from 'components/atoms/SvgIcon';
 
 export type IconViewProps = {
   iconType: SvgIconType;
