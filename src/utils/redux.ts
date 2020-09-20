@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-restricted-imports
 import {useSelector as useSelectorOrigin} from 'react-redux';
 import {RootState} from 'store';
 

@@ -27,7 +27,25 @@ const commonRules = {
   '@typescript-eslint/array-type': 'warn',
 }
 
+const restrictedReduxPaths = [
+  {
+    name: 'react-redux',
+    importNames: [
+      'useSelector',
+    ],
+    message: 'Import from utils/redux instead',
+  },
+]
+
+const restrictedImportsRule = {
+  'no-restricted-imports': ['error', {
+    paths: restrictedReduxPaths,
+  }],
+}
+
+
 const projectSpecificRules = {
+  ...restrictedImportsRule,
   'jsx-a11y/no-onchange': 'off',
   'jsx-a11y/click-events-have-key-events': 'off',
   'jsx-a11y/no-static-element-interactions': 'off',
