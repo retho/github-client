@@ -36,13 +36,20 @@ const restrictedReduxPaths = [
     message: 'Import from utils/redux instead',
   },
 ]
-
+const restrictedBemPaths = [
+  {
+    name: '@bem-react/classname',
+    message: 'Import from utils/bem instead',
+  },
+]
 const restrictedImportsRule = {
   'no-restricted-imports': ['error', {
-    paths: restrictedReduxPaths,
+    paths: [
+      ...restrictedReduxPaths,
+      ...restrictedBemPaths,
+    ],
   }],
 }
-
 
 const projectSpecificRules = {
   ...restrictedImportsRule,

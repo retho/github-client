@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
-import cn from 'classnames';
 import ReactSwitch, {ReactSwitchProps} from 'react-switch';
+import bem, {cn} from 'utils/bem';
 
+const root = bem('Switch');
 export type LangTogglerProps = {
   className?: string;
   checked: boolean;
@@ -14,7 +15,7 @@ export type LangTogglerProps = {
 const Switch: FC<LangTogglerProps> = (props) => {
   return (
     <ReactSwitch
-      className={cn('Switch', props.className)}
+      className={cn(root(), props.className)}
       checked={props.checked}
       onChange={props.onChange}
       height={24}

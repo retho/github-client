@@ -960,6 +960,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@bem-react/classname@^1.5.8":
+  version "1.5.8"
+  resolved "https://registry.yarnpkg.com/@bem-react/classname/-/classname-1.5.8.tgz#cbb5fb6b3d5e662ef7cad7f57941cb3aa044be4f"
+  integrity sha512-F+s5TVxOrznvnx7hYMq43RQ5ZNKk1fSMZX9PRObVco2bGYwNGEKTtvHTeY5wGVjkB7OJlq+/8QPDV2CJnbzaxg==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -1400,11 +1405,6 @@
   integrity sha512-jEFQ8L1tuvPjOI8lnpaf73oCJe+aoxL6ygqSy6c8LcW98zaC+4mzWuQIRCEvKeCOu+lbqdXcg4Uqmm1S8AP1tw==
   dependencies:
     "@babel/types" "^7.3.0"
-
-"@types/classnames@^2.2.9":
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.9.tgz#d868b6febb02666330410fe7f58f3c4b8258be7b"
-  integrity sha512-MNl+rT5UmZeilaPxAVs6YaPC2m6aA8rofviZbhbxpPpl61uKodfdQVsBtgJGTqGizEf02oW3tsVe7FYB8kK14A==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
@@ -2876,12 +2876,7 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001035, caniuse-lite@^1.0.30001036, caniuse-lite@^1.0.30001038:
-  version "1.0.30001132"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001132.tgz"
-  integrity sha512-zk5FXbnsmHa0Ktc/NOZJRr+ilXva+2KFJuRiQfnjkxJfV/7DYP5C27lSQF++/veCUzVWE5xecZnSBJjf6fSwJA==
-
-caniuse-lite@^1.0.30001039, caniuse-lite@^1.0.30001043:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001035, caniuse-lite@^1.0.30001036, caniuse-lite@^1.0.30001038, caniuse-lite@^1.0.30001039, caniuse-lite@^1.0.30001043:
   version "1.0.30001132"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001132.tgz"
   integrity sha512-zk5FXbnsmHa0Ktc/NOZJRr+ilXva+2KFJuRiQfnjkxJfV/7DYP5C27lSQF++/veCUzVWE5xecZnSBJjf6fSwJA==
@@ -3037,11 +3032,6 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
-
-classnames@^2.2.6:
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
-  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
 
 clean-css@^4.2.3:
   version "4.2.3"

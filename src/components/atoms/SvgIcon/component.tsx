@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import cn from 'classnames';
+import bem, {cn} from 'utils/bem';
 import './style.scss';
 
 // * icon sources:
@@ -34,13 +34,15 @@ export const allSvgIconTypes = Object.keys(icons) as SvgIconType[];
 export const isSvgIconType = (type: string): type is SvgIconType =>
   Object.keys(icons).includes(type);
 
+const root = bem('SvgIcon');
 export type IconProps = React.SVGProps<SVGSVGElement> & {
   className?: string;
   type: SvgIconType;
 };
-const SvgIcon: FC<IconProps> = ({type, className, ...restProps}) => {
+const SvgIcon: FC<IconProps> = (props) => {
+  const {type, className, ...restProps} = props;
   const CustomIcon = icons[type];
-  return <CustomIcon className={cn('SvgIcon', className)} {...restProps} />;
+  return <CustomIcon className={cn(root(), className)} {...restProps} />;
 };
 
 export default SvgIcon;
