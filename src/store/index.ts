@@ -1,8 +1,7 @@
 import {configureStore, Action, getDefaultMiddleware} from '@reduxjs/toolkit';
 import {ThunkAction} from 'redux-thunk';
-import {BehaviorSubject, from} from 'rxjs';
+import {from} from 'rxjs';
 import {createEpicMiddleware, Epic} from 'redux-observable';
-import {switchMap} from 'rxjs/operators';
 
 import rootEpic from './rootEpic';
 import rootReducer from './rootReducer';
@@ -21,7 +20,9 @@ const rxDependencies = {
   ajax: (null as unknown) as typeof rxAjax,
 };
 
-const epicMiddleware = createEpicMiddleware({dependencies: rxDependencies});
+const epicMiddleware = createEpicMiddleware<Action<unknown>, Action<unknown>, RootState>({
+  dependencies: rxDependencies,
+});
 
 const store = configureStore({
   reducer: rootReducer,
@@ -41,22 +42,12 @@ const rxAjax = <D>(params: AjaxRequest<D>) => from(bindedAjax(params));
 thunkExtraArgument.ajax = genAjax(store);
 rxDependencies.ajax = rxAjax;
 
-const epic$ = new BehaviorSubject(rootEpic);
-const hotReloadingEpic = (
-  ...args: any[] // eslint-disable-line @typescript-eslint/no-explicit-any
-): any => epic$.pipe(switchMap((epic: any) => epic(...args))); // eslint-disable-line @typescript-eslint/no-explicit-any
-
-epicMiddleware.run(hotReloadingEpic);
+epicMiddleware.run(rootEpic);
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./rootReducer', () => {
     const newRootReducer = require('./rootReducer').default;
     store.replaceReducer(newRootReducer);
-  });
-  module.hot.accept('./rootEpic', () => {
-    // ! `window.location.reload()` is better option
-    const nextRootEpic = require('./rootEpic').default;
-    epic$.next(nextRootEpic);
   });
 }
 
